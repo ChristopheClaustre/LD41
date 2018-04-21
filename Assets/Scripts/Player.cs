@@ -30,6 +30,14 @@ public class Player :
 
     /********  PUBLIC           ************************/
 
+    public ONEGeneral.Direction Direction
+    {
+        get
+        {
+            return m_direction;
+        }
+    }
+
     /********  PROTECTED        ************************/
 
     #endregion
