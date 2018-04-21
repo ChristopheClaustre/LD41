@@ -2,15 +2,15 @@
 /***  INCLUDE               ************************/
 /***************************************************/
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class CameraScript :
+public class GUIMovement :
     MonoBehaviour
-    , ONETurnBased.ITurnBasedThing
 {
     #region Sub-classes/enum
     /***************************************************/
@@ -57,7 +57,9 @@ public class CameraScript :
 
     /********  PRIVATE          ************************/
 
-    [SerializeField, Range(-5, 5)] private int m_offset = 5;
+    [SerializeField] private Sprite m_arrow;
+    [SerializeField] private Sprite m_pressed;
+    [SerializeField] private Sprite m_selected;
 
     #endregion
     #region Methods
@@ -70,25 +72,26 @@ public class CameraScript :
     // Use this for initialization
     private void Start()
     {
-        PlayMyTurn();
+        
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        if (!player) return;
+
+        Image[] childs = GetComponentsInChildren<Image>();
+        for (int i = 0; i < childs.Length; ++i)
+        {
+            if ((ONEGeneral.Direction)i == player.Direction) childs[i].sprite = m_selected;
+            else childs[i].sprite = m_arrow;
+        }
     }
 
     /********  OUR MESSAGES     ************************/
 
     /********  PUBLIC           ************************/
-
-    public void PlayMyTurn()
-    {
-        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-        Vector3 cameraPosition = gameObject.transform.parent.transform.position;
-        gameObject.transform.parent.transform.position = new Vector3(playerPosition.x+m_offset, cameraPosition.y, cameraPosition.z);
-    }
 
     /********  PROTECTED        ************************/
 

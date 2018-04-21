@@ -2,15 +2,15 @@
 /***  INCLUDE               ************************/
 /***************************************************/
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class CameraScript :
+public class GUILifePoint :
     MonoBehaviour
-    , ONETurnBased.ITurnBasedThing
 {
     #region Sub-classes/enum
     /***************************************************/
@@ -57,7 +57,12 @@ public class CameraScript :
 
     /********  PRIVATE          ************************/
 
-    [SerializeField, Range(-5, 5)] private int m_offset = 5;
+    [SerializeField] private List<GameObject> m_childrens;
+    [SerializeField, Range(2, 20)] private int m_max = 5;
+    [SerializeField, Range(0, 20)] private int m_current = 3;
+
+    [SerializeField] private Color m_lost;
+    [SerializeField] private Color m_remaining;
 
     #endregion
     #region Methods
@@ -70,25 +75,27 @@ public class CameraScript :
     // Use this for initialization
     private void Start()
     {
-        PlayMyTurn();
+        m_childrens = new List<GameObject>();
+
+        foreach (Transform child in transform)
+        {
+            m_childrens.Add(child.gameObject);
+        }
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+        for(int i = 0; i < m_childrens.Count ; ++i)
+        {
+            m_childrens[i].GetComponent<Image>().color = (i >= m_current) ? m_lost : m_remaining;
+            m_childrens[i].SetActive(i < m_max);
+        }
     }
 
     /********  OUR MESSAGES     ************************/
 
     /********  PUBLIC           ************************/
-
-    public void PlayMyTurn()
-    {
-        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-        Vector3 cameraPosition = gameObject.transform.parent.transform.position;
-        gameObject.transform.parent.transform.position = new Vector3(playerPosition.x+m_offset, cameraPosition.y, cameraPosition.z);
-    }
 
     /********  PROTECTED        ************************/
 
