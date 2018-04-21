@@ -42,6 +42,23 @@ public class ONEMap :
             return m_WorldToMapUnit;
         }
     }
+
+    public int NbRow
+    {
+        get
+        {
+            return m_NbRow;
+        }
+    }
+
+    public int NbColumn
+    {
+        get
+        {
+            return m_NbColumn;
+        }
+    }
+
     /********  PROTECTED        ************************/
 
     #endregion
