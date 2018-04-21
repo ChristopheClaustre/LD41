@@ -53,7 +53,7 @@ public class EnnemySpawn :
 
     /********  INSPECTOR        ************************/
     [SerializeField]
-    Queue<Ennemy> m_SpawnQueue;
+    Queue<Enemy> m_SpawnQueue;
     [SerializeField]
     int m_SpawnTick;    // Turn between two activations
     [SerializeField]
@@ -76,7 +76,7 @@ public class EnnemySpawn :
     // Use this for initialization
     private void Start()
     {
-        m_SpawnQueue = new Queue<Ennemy>();
+        m_SpawnQueue = new Queue<Enemy>();
         m_Activated = false;
         m_CoolDownTick = 0;
     }

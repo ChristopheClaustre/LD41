@@ -61,9 +61,9 @@ public class ONETurnBased :
 
     /********  PRIVATE          ************************/
 
-    [SerializeField] private List<ITurnBasedThing> m_turnBasedThings = new List<ITurnBasedThing>();
-
-    [SerializeField] private bool m_isAxisInUse = false;
+    [SerializeField] private List<string> m_turnBasedTags = new List<string>();
+    
+    private bool m_isAxisInUse = false;
 
     #endregion
     #region Methods
@@ -93,25 +93,23 @@ public class ONETurnBased :
         {
             m_isAxisInUse = true;
 
-            Player script = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
             if (Input.GetAxis("NW____") != 0)
-                script.Move(ONEGeneral.Direction.eNW);
+                MovePlayer(ONEGeneral.Direction.eNW);
             else if (Input.GetAxis("__NN__") != 0)
-                script.Move(ONEGeneral.Direction.eNN);
+                MovePlayer(ONEGeneral.Direction.eNN);
             else if (Input.GetAxis("____NE") != 0)
-                script.Move(ONEGeneral.Direction.eNE);
+                MovePlayer(ONEGeneral.Direction.eNE);
             else if (Input.GetAxis("WW____") != 0)
-                script.Move(ONEGeneral.Direction.eWW);
+                MovePlayer(ONEGeneral.Direction.eWW);
             else if (Input.GetAxis("_STAY_") != 0) { }
             else if (Input.GetAxis("____EE") != 0)
-                script.Move(ONEGeneral.Direction.eEE);
+                MovePlayer(ONEGeneral.Direction.eEE);
             else if (Input.GetAxis("SW____") != 0)
-                script.Move(ONEGeneral.Direction.eSW);
+                MovePlayer(ONEGeneral.Direction.eSW);
             else if (Input.GetAxis("__SS__") != 0)
-                script.Move(ONEGeneral.Direction.eSS);
+                MovePlayer(ONEGeneral.Direction.eSS);
             else if (Input.GetAxis("____SE") != 0)
-                script.Move(ONEGeneral.Direction.eSE);
+                MovePlayer(ONEGeneral.Direction.eSE);
             else if (Input.GetAxis("SLOT#1") != 0)
                 Debug.Log("SLOT#1"); // TODO
             else if (Input.GetAxis("SLOT#2") != 0)
@@ -133,19 +131,29 @@ public class ONETurnBased :
     public void PlayOneTurn()
     {
         ONEMap.Instance.updateMap();
-        m_turnBasedThings.Clear();
-        foreach(GameObject go in GameObject.FindGameObjectsWithTag("TurnBased"))
-        {
-            ITurnBasedThing script = go.GetComponent<ITurnBasedThing>();
-            m_turnBasedThings.Add(script);
 
-            script.PlayMyTurn();
+        foreach (string tag in m_turnBasedTags)
+        {
+            foreach (GameObject go in GameObject.FindGameObjectsWithTag(tag))
+            {
+                ITurnBasedThing script = go.GetComponent<ITurnBasedThing>();
+                if (script != null) script.PlayMyTurn();
+            }
         }
     }
 
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
+
+    private void MovePlayer(ONEGeneral.Direction p_direction)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Player script = player.GetComponent<Player>();
+
+        // Move
+        script.Move(p_direction);
+    }
 
     #endregion
 }

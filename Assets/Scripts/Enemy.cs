@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class Ennemy :
+public class Enemy :
     MonoBehaviour
     , ONETurnBased.ITurnBasedThing
 {
@@ -31,6 +31,14 @@ public class Ennemy :
 
     /********  PUBLIC           ************************/
 
+    public int LifePoint
+    {
+        get
+        {
+            return m_lifePoint;
+        }
+    }
+
     /********  PROTECTED        ************************/
 
     #endregion
@@ -52,10 +60,12 @@ public class Ennemy :
     /***************************************************/
 
     /********  INSPECTOR        ************************/
-    
+
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
+
+    [SerializeField, Range(0, 10)] private int m_lifePoint = 2;
 
     #endregion
     #region Methods
@@ -83,7 +93,18 @@ public class Ennemy :
 
     public void PlayMyTurn()
     {
-        Debug.Log("I've played " + name);
+        if (m_lifePoint > 0) Debug.Log(name + " played !");
+    }
+    
+    public void Hit(int p_damage)
+    {
+        m_lifePoint -= p_damage;
+
+        if (m_lifePoint <= 0)
+        {
+            GetComponent<SpriteRenderer>().color = Color.red;
+            Debug.Log(name + " diededed ! x(");
+        }
     }
 
     /********  PROTECTED        ************************/

@@ -101,7 +101,7 @@ public class Spawn :
             foreach (GameObject nextCellObject in nextCellObjectList)
             {
                 Debug.Log("TODO");
-                if (nextCellObject.GetType() == typeof(Ennemy))
+                if (nextCellObject.GetType() == typeof(Enemy))
                 {
                     //Do some stuff
                 }

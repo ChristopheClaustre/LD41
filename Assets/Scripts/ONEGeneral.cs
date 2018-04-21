@@ -87,9 +87,45 @@ public class ONEGeneral :
 
     /********  PUBLIC           ************************/
 
-    /********  PROTECTED        ************************/
+    public static Vector2 DirectionToVec2(Direction p_movement)
+    {
+        Vector2 destination = Vector2.zero;
+        switch (p_movement)
+        {
+            case ONEGeneral.Direction.eNW:
+                destination = new Vector2(-1, 1);
+                break;
+            case ONEGeneral.Direction.eNN:
+                destination = new Vector2(0, 1);
+                break;
+            case ONEGeneral.Direction.eNE:
+                destination = new Vector2(1, 1);
+                break;
+            case ONEGeneral.Direction.eWW:
+                destination = new Vector2(-1, 0);
+                break;
+            case ONEGeneral.Direction.eEE:
+                destination = new Vector2(1, 0);
+                break;
+            case ONEGeneral.Direction.eSW:
+                destination = new Vector2(-1, -1);
+                break;
+            case ONEGeneral.Direction.eSS:
+                destination = new Vector2(0, -1);
+                break;
+            case ONEGeneral.Direction.eSE:
+                destination = new Vector2(1, -1);
+                break;
+            default:
+                break;
+        }
 
-    /********  PRIVATE          ************************/
+        return destination;
+    }
 
-    #endregion
-}
+        /********  PROTECTED        ************************/
+
+        /********  PRIVATE          ************************/
+
+        #endregion
+    }
