@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class Spawn :
+public class EnnemySpawn :
     MonoBehaviour
     , ONETurnBased.ITurnBasedThing
 {
