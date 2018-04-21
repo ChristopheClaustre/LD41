@@ -132,6 +132,7 @@ public class ONETurnBased :
     // Play one turn just after the player has played
     public void PlayOneTurn()
     {
+        ONEMap.Instance.updateMap();
         m_turnBasedThings.Clear();
         foreach(GameObject go in GameObject.FindGameObjectsWithTag("TurnBased"))
         {

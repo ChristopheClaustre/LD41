@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class Map :
+public class ONEMap :
     MonoBehaviour
 {
     #region Sub-classes/enum
@@ -29,7 +29,11 @@ public class Map :
     /***************************************************/
 
     /********  PUBLIC           ************************/
-
+    // Instance
+    public static ONEMap Instance
+    {
+        get { return m_instance; }
+    }
     /********  PROTECTED        ************************/
 
     #endregion
@@ -53,13 +57,13 @@ public class Map :
     /********  INSPECTOR        ************************/
 
     [SerializeField]
-    int mNbRow;
+    int m_NbRow;
     [SerializeField]
-    int mNbColumn;
+    int m_NbColumn;
     [SerializeField]
-    int wordToMapUnit;
+    int m_WorldToMapUnit;
     [SerializeField]
-    List<string> TagSelectedList;
+    List<string> m_TagSelectedList;
 
     [Space(20)]
     [Header("Debug Stuff")]
@@ -69,8 +73,9 @@ public class Map :
 
     /********  PROTECTED        ************************/
 
-    List<List<GameObject>> mMap;
+    List<List<GameObject>> m_Map;
     /********  PRIVATE          ************************/
+    private static ONEMap m_instance;
 
     #endregion
     #region Methods
@@ -83,33 +88,23 @@ public class Map :
     // Use this for initialization
     private void Start()
     {
-        mMap = new List<List<GameObject>>();
+        m_instance = this;
+        m_Map = new List<List<GameObject>>();
         //Construct map
-        for (int i = 0; i < mNbRow; i++)
+        for (int i = 0; i < m_NbRow; i++)
         {
             List<GameObject> row = new List<GameObject>(); // Create an empty row
-            for (int j = 0; j < mNbColumn; j++)
+            for (int j = 0; j < m_NbColumn; j++)
             {
                 row.Add(null); // Add an element (column) to the row
             }
-            mMap.Add(row); // Add the row to the main vector
+            m_Map.Add(row); // Add the row to the main vector
         }
     }
 
     // Update is called once per frame
     private void Update()
     {
-        //Automatic gameObjects detection
-        foreach (string tag in TagSelectedList)
-        {
-            GameObject[] detectedObjectsList = GameObject.FindGameObjectsWithTag(tag);
-            foreach (GameObject detectedObject in detectedObjectsList)
-            {
-                //Put object on mMap
-                automaticPlacementComputation(detectedObject);
-            }
-        }
-
         if(showMap)
         {
             showMapElements();
@@ -121,11 +116,36 @@ public class Map :
 
     /********  PUBLIC           ************************/
 
+    public void updateMap()
+    {
+        //Clear the map
+        m_Map = new List<List<GameObject>>();
+        for (int i = 0; i < m_NbRow; i++)
+        {
+            List<GameObject> row = new List<GameObject>(); // Create an empty row
+            for (int j = 0; j < m_NbColumn; j++)
+            {
+                row.Add(null); // Add an element (column) to the row
+            }
+            m_Map.Add(row); // Add the row to the main vector
+        }
+        //Automatic gameObjects detection
+        foreach (string tag in m_TagSelectedList)
+        {
+            GameObject[] detectedObjectsList = GameObject.FindGameObjectsWithTag(tag);
+            foreach (GameObject detectedObject in detectedObjectsList)
+            {
+                //Put object on mMap
+                automaticPlacementComputation(detectedObject);
+            }
+        }
+    }
+
     public GameObject getObjectAt(int pX, int pY)
     {
-        if (pX >= 0 && pX < mMap.Count && pY >= 0 && pY < mMap[pX].Count)
+        if (pX >= 0 && pX < m_Map.Count && pY >= 0 && pY < m_Map[pX].Count)
         {
-            return mMap[pX][pY]; //null if empty case
+            return m_Map[pX][pY]; //null if empty case
         }
         else
         {
@@ -135,22 +155,22 @@ public class Map :
 
     public bool isOnMapCoordinates(int pX, int pY)
     {
-        return (pX >= 0 && pX < mMap.Count && pY >= 0 && pY < mMap[pX].Count);
+        return (pX >= 0 && pX < m_Map.Count && pY >= 0 && pY < m_Map[pX].Count);
     }
 
     /********  PROTECTED        ************************/
 
     protected void automaticPlacementComputation(GameObject pObject)
     {
-        float x = pObject.transform.position.x;
-        float y = pObject.transform.position.z;
-        int row = Mathf.FloorToInt(Mathf.FloorToInt(x) / wordToMapUnit);
-        int column = Mathf.FloorToInt(Mathf.FloorToInt(y) / wordToMapUnit);
+        float x = pObject.transform.position.z;
+        float y = pObject.transform.position.x;
+        int row = Mathf.FloorToInt(Mathf.FloorToInt(x) / m_WorldToMapUnit);
+        int column = Mathf.FloorToInt(Mathf.FloorToInt(y) / m_WorldToMapUnit);
 
         //Safty check
-        if (row >= 0 && row < mMap.Count && column >= 0 && column < mMap[row].Count)
+        if (row >= 0 && row < m_Map.Count && column >= 0 && column < m_Map[row].Count)
         {
-            mMap[row][column] = pObject;
+            m_Map[row][column] = pObject;
         }
         else
         {
@@ -160,14 +180,14 @@ public class Map :
 
     protected void showMapElements()
     {
-        for (int i = 0; i < mMap.Count; i++)
+        for (int i = 0; i < m_Map.Count; i++)
         {
-            for (int j = 0; j < mMap[i].Count; j++)
+            for (int j = 0; j < m_Map[i].Count; j++)
             {
                 //If not null case
-                if(mMap[i][j])
+                if(m_Map[i][j])
                 {
-                    Debug.Log("Object : [" + i + "][" + j + "] is " + mMap[i][j].name);
+                    Debug.Log("Object : [" + i + "][" + j + "] is " + m_Map[i][j].name);
                 }
             }
         }
