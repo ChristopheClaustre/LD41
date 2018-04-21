@@ -58,8 +58,6 @@ public class GUILifePoint :
     /********  PRIVATE          ************************/
 
     [SerializeField] private List<GameObject> m_childrens;
-    [SerializeField, Range(2, 20)] private int m_max = 5;
-    [SerializeField, Range(0, 20)] private int m_current = 3;
 
     [SerializeField] private Color m_lost;
     [SerializeField] private Color m_remaining;
@@ -86,10 +84,11 @@ public class GUILifePoint :
     // Update is called once per frame
     private void Update()
     {
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         for(int i = 0; i < m_childrens.Count ; ++i)
         {
-            m_childrens[i].GetComponent<Image>().color = (i >= m_current) ? m_lost : m_remaining;
-            m_childrens[i].SetActive(i < m_max);
+            m_childrens[i].GetComponent<Image>().color = (i >= player.CurrentLifePoint) ? m_lost : m_remaining;
+            m_childrens[i].SetActive(i < player.MaxLifePoint);
         }
     }
 

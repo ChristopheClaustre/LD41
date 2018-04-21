@@ -38,6 +38,32 @@ public class Player :
         }
     }
 
+    public int MaxLifePoint
+    {
+        get
+        {
+            return m_maxLifePoint;
+        }
+
+        set
+        {
+            m_maxLifePoint = value;
+        }
+    }
+
+    public int CurrentLifePoint
+    {
+        get
+        {
+            return m_currentLifePoint;
+        }
+
+        set
+        {
+            m_currentLifePoint = value;
+        }
+    }
+
     /********  PROTECTED        ************************/
 
     #endregion
@@ -65,6 +91,9 @@ public class Player :
     /********  PRIVATE          ************************/
 
     private ONEGeneral.Direction m_direction = ONEGeneral.Direction.eEE;
+
+    [SerializeField, Range(2, 20)] private int m_maxLifePoint = 5;
+    [SerializeField, Range(0, 20)] private int m_currentLifePoint = 3;
 
     #endregion
     #region Methods
