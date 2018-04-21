@@ -97,26 +97,43 @@ public class Player :
     {
         m_direction = p_movement;
 
-        Vector2 deplacement = ONEGeneral.DirectionToVec2(p_movement);
+        Vector2 deplacement = ONEGeneral.DirectionToVec2(p_movement) * ONEMap.Instance.WorldToMapUnit;
         Vector2 destination = new Vector2(transform.localPosition.x + deplacement.x, transform.localPosition.y + deplacement.y);
 
-        if (ONEMap.Instance.isOnMapCoordinates(Mathf.RoundToInt(destination.y), Mathf.RoundToInt(destination.x)))
+        List<GameObject> gos = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(destination.y), Mathf.RoundToInt(destination.x));
+        if (gos != null)
         {
-            List<GameObject> gos = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(destination.y), Mathf.RoundToInt(destination.x));
-
             if (gos.Count > 0)
             {
-                // TODO : obstacle
-                // Obstacle obstacle = go.GetComponent<Obstacle>();
-                // if (obstacle != null) return;
+                bool blocked = false;
 
-                // Enemy
-                Enemy enemy = gos[0].GetComponent<Enemy>();
-                if (enemy != null)
+                foreach(GameObject go in gos)
                 {
-                    enemy.Hit(1);
-                    if (enemy.LifePoint <= 0) transform.localPosition = destination;
+                    if (go != null) {
+                        Obstacle obstacle = go.GetComponent<Obstacle>();
+                        Enemy enemy = go.GetComponent<Enemy>();
+                        //Weapon weapon = go.GetComponent<Weapon>();
+
+                        // Obstacle
+                        if (obstacle != null) blocked = true;
+
+                        // Enemy
+                        else if (enemy != null)
+                        {
+                            enemy.Hit(1);
+                            blocked = true;
+                        }
+
+                        // TODO: weapon
+                        //else if (weapon != null)
+                        //{
+                        //    TakeWeapon(weapon);
+                        //}
+                    }
                 }
+
+                // move if not blocked
+                if (! blocked) transform.localPosition = destination;
             }
             else
             {

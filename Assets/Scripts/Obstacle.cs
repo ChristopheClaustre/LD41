@@ -8,9 +8,8 @@ using System.Collections.Generic;
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class Enemy :
+public class Obstacle :
     MonoBehaviour
-    , ONETurnBased.ITurnBasedThing
 {
     #region Sub-classes/enum
     /***************************************************/
@@ -67,8 +66,6 @@ public class Enemy :
 
     [SerializeField, Range(0, 10)] private int m_lifePoint = 2;
 
-    [SerializeField] private GameObject m_weapon;
-
     #endregion
     #region Methods
     /***************************************************/
@@ -92,28 +89,6 @@ public class Enemy :
     /********  OUR MESSAGES     ************************/
 
     /********  PUBLIC           ************************/
-
-    public void PlayMyTurn()
-    {
-
-    }
-    
-    public void Hit(int p_damage)
-    {
-        m_lifePoint -= p_damage;
-
-        if (m_lifePoint <= 0)
-        {
-            if (m_weapon)
-            {
-                GameObject created = Instantiate(m_weapon, transform.parent);
-                created.transform.localPosition = transform.localPosition;
-            }
-
-            Debug.Log(name + " diededed ! x(");
-            Destroy(gameObject);
-        }
-    }
 
     /********  PROTECTED        ************************/
 

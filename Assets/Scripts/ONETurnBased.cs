@@ -140,6 +140,8 @@ public class ONETurnBased :
                 if (script != null) script.PlayMyTurn();
             }
         }
+
+        ONEMap.Instance.updateMap();
     }
 
     /********  PROTECTED        ************************/
