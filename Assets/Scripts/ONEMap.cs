@@ -81,7 +81,7 @@ public class ONEMap :
 
     /********  PROTECTED        ************************/
 
-    List<List<GameObject>> m_Map;
+    List<List<List<GameObject>>> m_Map;
     /********  PRIVATE          ************************/
     private static ONEMap m_instance;
 
@@ -97,14 +97,13 @@ public class ONEMap :
     private void Start()
     {
         m_instance = this;
-        m_Map = new List<List<GameObject>>();
-        //Construct map
+        m_Map = new List<List<List<GameObject>>>();
         for (int i = 0; i < m_NbRow; i++)
         {
-            List<GameObject> row = new List<GameObject>(); // Create an empty row
+            List<List<GameObject>> row = new List<List<GameObject>>(); // Create an empty row
             for (int j = 0; j < m_NbColumn; j++)
             {
-                row.Add(null); // Add an element (column) to the row
+                row.Add(new List<GameObject>()); // Add an empty GameObject list to the row
             }
             m_Map.Add(row); // Add the row to the main vector
         }
@@ -127,13 +126,13 @@ public class ONEMap :
     public void updateMap()
     {
         //Clear the map
-        m_Map = new List<List<GameObject>>();
+        m_Map = new List<List<List<GameObject>>>();
         for (int i = 0; i < m_NbRow; i++)
         {
-            List<GameObject> row = new List<GameObject>(); // Create an empty row
+            List<List<GameObject>> row = new List<List<GameObject>>(); // Create an empty row
             for (int j = 0; j < m_NbColumn; j++)
             {
-                row.Add(null); // Add an element (column) to the row
+                row.Add(new List<GameObject>()); // Add an empty GameObject list to the row
             }
             m_Map.Add(row); // Add the row to the main vector
         }
@@ -149,11 +148,11 @@ public class ONEMap :
         }
     }
 
-    public GameObject getObjectAt(int p_X, int p_Y)
+    public List<GameObject> getObjectAt(int p_X, int p_Y)
     {
         if (p_X >= 0 && p_X < m_Map.Count && p_Y >= 0 && p_Y < m_Map[p_X].Count)
         {
-            return m_Map[p_X][p_Y]; //null if empty case
+            return m_Map[p_X][p_Y]; //Empty if empty case
         }
         else
         {
@@ -186,7 +185,7 @@ public class ONEMap :
         //Safty check
         if (row >= 0 && row < m_Map.Count && column >= 0 && column < m_Map[row].Count)
         {
-            m_Map[row][column] = p_Object;
+            m_Map[row][column].Add(p_Object);
         }
         else
         {
@@ -201,9 +200,12 @@ public class ONEMap :
             for (int j = 0; j < m_Map[i].Count; j++)
             {
                 //If not null case
-                if(m_Map[i][j])
+                if(m_Map[i][j].Count > 0)
                 {
-                    Debug.Log("Object : [" + i + "][" + j + "] is " + m_Map[i][j].name);
+                    foreach(GameObject gameObject in m_Map[i][j])
+                    {
+                        Debug.Log("Object : [" + i + "][" + j + "] is " + gameObject.name);
+                    }
                 }
             }
         }
