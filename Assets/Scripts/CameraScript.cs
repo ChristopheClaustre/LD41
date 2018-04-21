@@ -83,7 +83,9 @@ public class CameraScript :
 
     public void PlayMyTurn()
     {
-        Debug.Log("I've played and my name is " + name);
+        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector3 cameraPosition = gameObject.transform.parent.transform.position;
+        gameObject.transform.parent.transform.position = new Vector3(playerPosition.x, cameraPosition.y, playerPosition.z);
     }
 
     /********  PROTECTED        ************************/
