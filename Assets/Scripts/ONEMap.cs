@@ -34,6 +34,14 @@ public class ONEMap :
     {
         get { return m_instance; }
     }
+
+    public int WorldToMapUnit
+    {
+        get
+        {
+            return m_WorldToMapUnit;
+        }
+    }
     /********  PROTECTED        ************************/
 
     #endregion
@@ -141,11 +149,11 @@ public class ONEMap :
         }
     }
 
-    public GameObject getObjectAt(int pX, int pY)
+    public GameObject getObjectAt(int p_X, int p_Y)
     {
-        if (pX >= 0 && pX < m_Map.Count && pY >= 0 && pY < m_Map[pX].Count)
+        if (p_X >= 0 && p_X < m_Map.Count && p_Y >= 0 && p_Y < m_Map[p_X].Count)
         {
-            return m_Map[pX][pY]; //null if empty case
+            return m_Map[p_X][p_Y]; //null if empty case
         }
         else
         {
@@ -153,28 +161,36 @@ public class ONEMap :
         }
     }
 
-    public bool isOnMapCoordinates(int pX, int pY)
+    public bool isOnMapCoordinates(int p_X, int p_Y)
     {
-        return (pX >= 0 && pX < m_Map.Count && pY >= 0 && pY < m_Map[pX].Count);
+        return (p_X >= 0 && p_X < m_Map.Count && p_Y >= 0 && p_Y < m_Map[p_X].Count);
     }
+
+    public Vector2 getMapCoordinates(Transform p_Transforme)
+    {
+        float x = p_Transforme.position.z;
+        float y = p_Transforme.position.x;
+        return new Vector2(Mathf.FloorToInt(Mathf.FloorToInt(x) / m_WorldToMapUnit), Mathf.FloorToInt(Mathf.FloorToInt(y) / m_WorldToMapUnit));
+    }
+
 
     /********  PROTECTED        ************************/
 
-    protected void automaticPlacementComputation(GameObject pObject)
+    protected void automaticPlacementComputation(GameObject p_Object)
     {
-        float x = pObject.transform.position.z;
-        float y = pObject.transform.position.x;
+        float x = p_Object.transform.position.z;
+        float y = p_Object.transform.position.x;
         int row = Mathf.FloorToInt(Mathf.FloorToInt(x) / m_WorldToMapUnit);
         int column = Mathf.FloorToInt(Mathf.FloorToInt(y) / m_WorldToMapUnit);
 
         //Safty check
         if (row >= 0 && row < m_Map.Count && column >= 0 && column < m_Map[row].Count)
         {
-            m_Map[row][column] = pObject;
+            m_Map[row][column] = p_Object;
         }
         else
         {
-            Debug.Log("Caution : Object '" + pObject + "' detected out of map. (Row = "+ row + " ; Column = " + column+")");
+            Debug.Log("Caution : Object '" + p_Object + "' detected out of map. (Row = "+ row + " ; Column = " + column+")");
         }
     }
 
