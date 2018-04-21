@@ -172,6 +172,10 @@ public class ONEMap :
         return new Vector2(Mathf.FloorToInt(Mathf.FloorToInt(x) / m_WorldToMapUnit), Mathf.FloorToInt(Mathf.FloorToInt(y) / m_WorldToMapUnit));
     }
 
+    public Vector2 getWorldCoordinates(int p_X, int p_Y)
+    {
+        return new Vector2(p_X * m_WorldToMapUnit, p_Y * m_WorldToMapUnit);
+    }
 
     /********  PROTECTED        ************************/
 

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class Spawn :
+public class Projectile :
     MonoBehaviour
     , ONETurnBased.ITurnBasedThing
 {
@@ -56,7 +56,7 @@ public class Spawn :
 
     /********  PROTECTED        ************************/
     [SerializeField]
-    ONEGeneral.Direction mDirection;
+    ONEGeneral.Direction m_Direction;
     [SerializeField]
     int m_LeftLifetime;    // Turn left before new activation 
     [SerializeField]
@@ -87,37 +87,65 @@ public class Spawn :
 
     /********  PUBLIC           ************************/
 
+    public void Init(ONEGeneral.Direction p_Direction, int p_LeftLifetime)
+    {
+        m_Direction = p_Direction;
+        m_LeftLifetime = p_LeftLifetime;
+    }
+
     public void PlayMyTurn()
     {
         m_ProjectileCoordinates = ONEMap.Instance.getMapCoordinates(this.transform);
-        //Analyse next cell
+
+        //Time up, bye bye :(
+        if(m_LeftLifetime <= 0)
+        {
+            Destroy(gameObject);
+        }
+ 
+        //Check if player is on current cell
+        List<GameObject> currentCellObjectList = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(m_ProjectileCoordinates.x), Mathf.RoundToInt(m_ProjectileCoordinates.y));
+        foreach (GameObject currentCellObject in currentCellObjectList)
+        {
+            if (currentCellObject.GetComponent<Player>())  // Player
+            {
+                //TODO Call player hit
+                Destroy(gameObject);
+            }
+        }
+
+        //Still here ? So analyse next cell
+        Vector2 deplacement = ONEGeneral.DirectionToVec2(m_Direction);
+        Vector2 nextProjectileCoordinates = new Vector2(m_ProjectileCoordinates.x + deplacement.x, m_ProjectileCoordinates.y + deplacement.y);
         
-        //TODO : Compute real next values
-        int nextX = (int) m_ProjectileCoordinates.x; //TODO Not the right value  
-        int nextY = (int) m_ProjectileCoordinates.y;//TODO Not the right value  
+        int nextX = Mathf.RoundToInt(nextProjectileCoordinates.x);
+        int nextY = Mathf.RoundToInt(nextProjectileCoordinates.y);
         if (ONEMap.Instance.isOnMapCoordinates(nextX, nextY))
         {
             List<GameObject> nextCellObjectList = ONEMap.Instance.getObjectAt(nextX, nextY);
             foreach (GameObject nextCellObject in nextCellObjectList)
             {
-                Debug.Log("TODO");
-                if (nextCellObject.GetType() == typeof(Enemy))
+                Debug.Log("WHY ???");
+                if (nextCellObject.GetComponent<Player>())  // Player
                 {
-                    //Do some stuff
+                    //TODO Call player hit
+                    Destroy(gameObject);
                 }
-                else if (nextCellObject.GetType() == typeof(Player))
-                {
-                    //Do other stuff
-                }
-                else
-                {
-                    //F**k, do what you want
-                }
+                //else if (nextCellObject.GetComponent<Obstacle>()) //
+                //{
+                //    Destroy(this);
+                //}
             }
+
+            if(nextCellObjectList.Count == 0)
+            {
+                transform.localPosition = new Vector2(transform.localPosition.x + (deplacement.x * ONEMap.Instance.WorldToMapUnit), transform.localPosition.y + (deplacement.y * ONEMap.Instance.WorldToMapUnit));
+            }
+            m_LeftLifetime--;
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
