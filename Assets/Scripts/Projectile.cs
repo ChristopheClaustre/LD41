@@ -130,10 +130,10 @@ public class Projectile :
                     ONEPlayer.Instance.Hit(1);
                     Destroy(gameObject);
                 }
-                //else if (nextCellObject.GetComponent<Obstacle>()) //
-                //{
-                //    Destroy(this);
-                //}
+                else if (nextCellObject.CompareTag("Obstacle")) // Obstacle
+                {
+                    Destroy(gameObject);
+                }
             }
             transform.localPosition = new Vector2(transform.localPosition.x + (deplacement.x * ONEMap.Instance.WorldToMapUnit), transform.localPosition.y + (deplacement.y * ONEMap.Instance.WorldToMapUnit));
             m_LeftLifetime--;

@@ -137,12 +137,11 @@ public class ONEPlayer :
                 foreach(GameObject go in gos)
                 {
                     if (go != null) {
-                        Obstacle obstacle = go.GetComponent<Obstacle>();
                         Enemy enemy = go.GetComponent<Enemy>();
                         //Weapon weapon = go.GetComponent<Weapon>();
 
                         // Obstacle
-                        if (obstacle != null) blocked = true;
+                        if (go.CompareTag("Obstacle")) blocked = true;
 
                         // Enemy
                         else if (enemy != null)
