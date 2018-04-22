@@ -136,11 +136,7 @@ public class Projectile :
                 //    Destroy(this);
                 //}
             }
-
-            if(nextCellObjectList.Count == 0)
-            {
-                transform.localPosition = new Vector2(transform.localPosition.x + (deplacement.x * ONEMap.Instance.WorldToMapUnit), transform.localPosition.y + (deplacement.y * ONEMap.Instance.WorldToMapUnit));
-            }
+            transform.localPosition = new Vector2(transform.localPosition.x + (deplacement.x * ONEMap.Instance.WorldToMapUnit), transform.localPosition.y + (deplacement.y * ONEMap.Instance.WorldToMapUnit));
             m_LeftLifetime--;
         }
         else
