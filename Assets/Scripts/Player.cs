@@ -119,9 +119,6 @@ public class Player :
 
     /********  PUBLIC           ************************/
 
-    // eNW, eN, eNE,
-    // eW,      eE,
-    // eSW, eS, eSE
     public void Move(ONEGeneral.Direction p_movement)
     {
         m_direction = p_movement;

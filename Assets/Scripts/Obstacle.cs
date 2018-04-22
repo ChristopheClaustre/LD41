@@ -30,14 +30,6 @@ public class Obstacle :
 
     /********  PUBLIC           ************************/
 
-    public int LifePoint
-    {
-        get
-        {
-            return m_lifePoint;
-        }
-    }
-
     /********  PROTECTED        ************************/
 
     #endregion
@@ -63,8 +55,6 @@ public class Obstacle :
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
-
-    [SerializeField, Range(0, 10)] private int m_lifePoint = 2;
 
     #endregion
     #region Methods
