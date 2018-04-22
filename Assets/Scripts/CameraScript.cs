@@ -87,7 +87,12 @@ public class CameraScript :
     {
         Vector3 playerPosition = ONEPlayer.Instance.transform.position;
         Vector3 cameraPosition = gameObject.transform.position;
-        gameObject.transform.position = new Vector3(playerPosition.x+m_offset, cameraPosition.y, cameraPosition.z);
+
+        var largeurCamera = Camera.main.orthographicSize * Camera.main.aspect;
+        var positionMin = 0 + largeurCamera - 0.5f;
+        var positionMax = ONEMap.Instance.NbColumn - largeurCamera - 0.5f;
+
+        gameObject.transform.position = new Vector3(Mathf.Max(positionMin, Mathf.Min(playerPosition.x+m_offset, positionMax)), cameraPosition.y, cameraPosition.z);
     }
 
     /********  PROTECTED        ************************/
