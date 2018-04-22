@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4021306622755966}
-  - component: {fileID: 114078915387241352}
   - component: {fileID: 212654688576744192}
+  - component: {fileID: 114078915387241352}
   m_Layer: 0
-  m_Name: Obstacle
+  m_Name: "m\xFBre"
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561203fc904f586439f54dda58daaafe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lifePoint: 2
 --- !u!212 &212654688576744192
 SpriteRenderer:
   m_ObjectHideFlags: 1
