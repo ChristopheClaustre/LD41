@@ -168,6 +168,12 @@ public class Player :
         }
     }
 
+    // Hit me master
+    public void Hit(int p_damage)
+    {
+        m_currentLifePoint -= p_damage;
+    }
+
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
