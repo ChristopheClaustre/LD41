@@ -136,8 +136,8 @@ public class ONETurnBased :
         {
             foreach (GameObject go in GameObject.FindGameObjectsWithTag(tag))
             {
-                ITurnBasedThing script = go.GetComponent<ITurnBasedThing>();
-                if (script != null) script.PlayMyTurn();
+                foreach(ITurnBasedThing script in go.GetComponents<ITurnBasedThing>())
+                    script.PlayMyTurn();
             }
         }
 
