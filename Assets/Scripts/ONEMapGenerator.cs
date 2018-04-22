@@ -76,21 +76,11 @@ public class ONEMapGenerator :
         var column = ONEMap.Instance.NbColumn;
         var row = ONEMap.Instance.NbRow;
 
-        // param tiled spriteRenderer
-        foreach(var sprite in m_toParamColumn)
-        {
-            sprite.size = new Vector2(column, sprite.size.y);
-        }
-        foreach (var sprite in m_toParamRow)
-        {
-            sprite.size = new Vector2(sprite.size.x, row);
-        }
-
         // spawners
         foreach (var prefab in m_spawners)
         {
             var created = Instantiate(prefab, m_spawnerParent);
-            created.transform.localPosition = new Vector3(Random.Range(0, column), Random.Range(0, row), 0);
+            created.transform.localPosition = new Vector3(Random.Range(1, column-1), Random.Range(1, row-1), 0);
         }
     }
 

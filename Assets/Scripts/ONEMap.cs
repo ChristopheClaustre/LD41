@@ -85,6 +85,8 @@ public class ONEMap :
 
     /********  INSPECTOR        ************************/
 
+    [SerializeField] SpriteRenderer m_sizer;
+
     [SerializeField]
     int m_NbRow;
     [SerializeField]
@@ -113,6 +115,16 @@ public class ONEMap :
     /***************************************************/
 
     /********  UNITY MESSAGES   ************************/
+
+    private void Awake()
+    {
+        if (m_sizer != null)
+        {
+            m_NbColumn = Mathf.RoundToInt(m_sizer.size.x);
+            m_NbRow = Mathf.RoundToInt(m_sizer.size.y);
+        }
+        else Debug.Log("Sizer not set ! Will use the setted NbColumn and NbRow");
+    }
 
     // Use this for initialization
     private void Start()

@@ -1172,12 +1172,12 @@ Prefab:
     - target: {fileID: 224835816233681986, guid: 704f5e2f7bbcede45a8674b913510c52,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224674789449576564, guid: 704f5e2f7bbcede45a8674b913510c52,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 704f5e2f7bbcede45a8674b913510c52, type: 2}
@@ -1257,6 +1257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f4178d0cfd311240b281c30540b6022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_sizer: {fileID: 443130575}
   m_NbRow: 7
   m_NbColumn: 20
   m_WorldToMapUnit: 1
