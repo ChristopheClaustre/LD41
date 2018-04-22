@@ -31,6 +31,14 @@ public class Projectile :
 
     /********  PUBLIC           ************************/
 
+    public ONEGeneral.Direction Direction
+    {
+        get
+        {
+            return m_Direction;
+        }
+    }
+
     /********  PROTECTED        ************************/
 
     #endregion
@@ -61,6 +69,9 @@ public class Projectile :
     int m_LeftLifetime;    // Turn left before new activation 
     [SerializeField]
     Vector2 m_ProjectileCoordinates;
+
+    private bool m_isFromPlayer = true;
+
     /********  PRIVATE          ************************/
 
     #endregion
@@ -87,11 +98,11 @@ public class Projectile :
 
     /********  PUBLIC           ************************/
 
-    public void Init(ONEGeneral.Direction p_Direction, int p_LeftLifetime)
+    public void Init(ONEGeneral.Direction p_Direction, int p_LeftLifetime, bool p_isFromPlayer)
     {
         m_Direction = p_Direction;
-        m_LeftLifetime = p_LeftLifetime;
-        PlayMyTurn();
+        m_LeftLifetime = p_LeftLifetime + 1;
+        m_isFromPlayer = p_isFromPlayer;
     }
 
     public void PlayMyTurn()
@@ -103,15 +114,17 @@ public class Projectile :
         {
             Destroy(gameObject);
         }
- 
+
         //Check if player is on current cell
-        List<GameObject> currentCellObjectList = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(m_ProjectileCoordinates.x), Mathf.RoundToInt(m_ProjectileCoordinates.y));
-        foreach (GameObject currentCellObject in currentCellObjectList)
+        if (!m_isFromPlayer)
         {
-            if (currentCellObject.GetComponent<ONEPlayer>())  // Player
+            List<GameObject> currentCellObjectList = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(m_ProjectileCoordinates.x), Mathf.RoundToInt(m_ProjectileCoordinates.y));
+            foreach (GameObject currentCellObject in currentCellObjectList)
             {
-                //TODO Call player hit
-                Destroy(gameObject);
+                if (currentCellObject.GetComponent<ONEPlayer>())  // Player
+                {
+                    //CollisionWithPlayer();
+                }
             }
         }
 
@@ -126,13 +139,17 @@ public class Projectile :
             List<GameObject> nextCellObjectList = ONEMap.Instance.getObjectAt(nextX, nextY);
             foreach (GameObject nextCellObject in nextCellObjectList)
             {
-                if (nextCellObject.GetComponent<ONEPlayer>())  // Player
+                if (nextCellObject.GetComponent<ONEPlayer>() && !m_isFromPlayer) // Player
                 {
-                    ONEPlayer.Instance.Hit(1);
-                    Destroy(gameObject);
+                    CollisionWithPlayer();
                 }
                 else if (nextCellObject.CompareTag("Obstacle")) // Obstacle
                 {
+                    Destroy(gameObject);
+                }
+                if (nextCellObject.GetComponent<Enemy>() && m_isFromPlayer) // Player
+                {
+                    nextCellObject.GetComponent<Enemy>().Hit(1);
                     Destroy(gameObject);
                 }
             }
@@ -143,6 +160,12 @@ public class Projectile :
         {
             Destroy(gameObject);
         }
+    }
+
+    public void CollisionWithPlayer()
+    {
+        ONEPlayer.Instance.Hit(1);
+        Destroy(gameObject);
     }
 
     /********  PROTECTED        ************************/

@@ -18,6 +18,45 @@ public class ONEPlayer :
 
     /********  PUBLIC           ************************/
 
+    [System.Serializable]
+    public class WeaponInSlot
+    {
+        public GameObject m_projectile;
+        public Sprite m_icone;
+        public Sprite m_weaponOnChar;
+        public int m_cooldown = 3;
+
+        private int m_currentCooldown = 0;
+
+        public int CurrentCooldown
+        {
+            get
+            {
+                return m_currentCooldown;
+            }
+        }
+
+        public void Shoot(Transform p_parent, Vector3 p_position, ONEGeneral.Direction p_direction)
+        {
+            if (m_projectile == null || m_currentCooldown != 0) { Debug.Log("Can't shoot"); return; }
+
+            GameObject created = Instantiate(m_projectile, p_parent);
+
+            created.transform.localPosition = p_position;
+
+            Projectile script = created.GetComponent<Projectile>();
+            Debug.Assert(script != null);
+            script.Init(p_direction, 10, true);
+
+            m_currentCooldown = m_cooldown + 1;
+        }
+
+        public void Cooldown()
+        {
+            if (m_currentCooldown > 0) m_currentCooldown--;
+        }
+    }
+
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
@@ -63,6 +102,22 @@ public class ONEPlayer :
         }
     }
 
+    public int Hand
+    {
+        get
+        {
+            return m_hand;
+        }
+    }
+
+    public List<WeaponInSlot> Slots
+    {
+        get
+        {
+            return m_slots;
+        }
+    }
+
     /********  PROTECTED        ************************/
 
     #endregion
@@ -96,6 +151,9 @@ public class ONEPlayer :
 
     private static ONEPlayer m_instance = null;
 
+    private List<WeaponInSlot> m_slots = new List<WeaponInSlot>();
+    [SerializeField, Range(0, 2)] private int m_hand = 0;
+
     #endregion
     #region Methods
     /***************************************************/
@@ -107,13 +165,12 @@ public class ONEPlayer :
     // Use this for initialization
     private void Start()
     {
-        
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+
     }
 
     /********  OUR MESSAGES     ************************/
@@ -130,48 +187,91 @@ public class ONEPlayer :
         List<GameObject> gos = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(destination.y), Mathf.RoundToInt(destination.x));
         if (gos != null)
         {
-            if (gos.Count > 0)
+            bool blocked = false;
+
+            foreach(GameObject go in gos)
             {
-                bool blocked = false;
+                if (go != null) {
+                    Enemy enemy = go.GetComponent<Enemy>();
+                    Weapon weapon = go.GetComponent<Weapon>();
+                    Projectile projectile = go.GetComponent<Projectile>();
 
-                foreach(GameObject go in gos)
-                {
-                    if (go != null) {
-                        Enemy enemy = go.GetComponent<Enemy>();
-                        //Weapon weapon = go.GetComponent<Weapon>();
+                    // Obstacle
+                    if (go.CompareTag("Obstacle")) blocked = true;
 
-                        // Obstacle
-                        if (go.CompareTag("Obstacle")) blocked = true;
+                    // Enemy
+                    else if (enemy != null)
+                    {
+                        enemy.Hit(1);
+                        blocked = true;
+                    }
 
-                        // Enemy
-                        else if (enemy != null)
-                        {
-                            enemy.Hit(1);
-                            blocked = true;
-                        }
+                    // Weapon
+                    else if (weapon != null)
+                    {
+                        TakeWeapon(weapon.WeaponInSlot);
+                        Destroy(go);
+                    }
 
-                        // TODO: weapon
-                        //else if (weapon != null)
-                        //{
-                        //    TakeWeapon(weapon);
-                        //}
+                    // Projectile
+                    else if (projectile != null && ONEGeneral.OppositeDirection(projectile.Direction, m_direction))
+                    {
+                        projectile.CollisionWithPlayer();
                     }
                 }
+            }
 
-                // move if not blocked
-                if (! blocked) transform.localPosition = destination;
-            }
-            else
-            {
-                transform.localPosition = destination;
-            }
+            // move if not blocked
+            if (! blocked) transform.localPosition = destination;
         }
+
+        WeaponsCooldown();
     }
 
     // Hit me master
     public void Hit(int p_damage)
     {
         m_currentLifePoint -= p_damage;
+    }
+
+    public void ChangeWeapon(int index)
+    {
+        Debug.Assert(index >= 0 && index <= 2);
+        m_hand = index;
+
+        WeaponsCooldown();
+    }
+
+    public void Shoot()
+    {
+        if (m_hand < m_slots.Count)
+        {
+            WeaponInSlot selected = m_slots[m_hand];
+            selected.Shoot(transform.parent, transform.localPosition, m_direction);
+        }
+        
+        WeaponsCooldown();
+    }
+
+    public void Wait()
+    {
+        WeaponsCooldown();
+    }
+
+    private void TakeWeapon(WeaponInSlot weapon)
+    {
+        if (m_slots.Count < 3)
+            m_slots.Add(weapon);
+        else
+            m_slots[m_hand] = weapon;
+    }
+
+    private void WeaponsCooldown()
+    {
+        foreach (WeaponInSlot weapon in m_slots)
+        {
+            if (weapon != null) weapon.Cooldown();
+        }
     }
 
     /********  PROTECTED        ************************/

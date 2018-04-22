@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class Obstacle :
+public class Weapon :
     MonoBehaviour
 {
     #region Sub-classes/enum
@@ -29,6 +29,14 @@ public class Obstacle :
     /***************************************************/
 
     /********  PUBLIC           ************************/
+
+    public ONEPlayer.WeaponInSlot WeaponInSlot
+    {
+        get
+        {
+            return m_weaponInSlot;
+        }
+    }
 
     /********  PROTECTED        ************************/
 
@@ -55,6 +63,8 @@ public class Obstacle :
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
+
+    [SerializeField] private ONEPlayer.WeaponInSlot m_weaponInSlot;
 
     #endregion
     #region Methods

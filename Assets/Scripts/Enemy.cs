@@ -26,14 +26,13 @@ public class Enemy :
         public enum Kind
         {
             eMove,
-            eShoot,
-            eMultiple,
+            eShoots,
             eWait
         }
 
         public Kind m_kind;
         public ONEGeneral.Direction m_direction;
-        public Action[] m_multiples;
+        public ONEGeneral.Direction[] m_multiples;
     }
 
     // IngredientDrawer
@@ -49,6 +48,9 @@ public class Enemy :
 
         private float GetChildHeight(SerializedProperty property, GUIContent label)
         {
+            if ((Action.Kind)property.FindPropertyRelative("m_kind").intValue != Action.Kind.eShoots)
+                return 0; 
+
             var child = property.FindPropertyRelative("m_multiples");
             var incr = base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
 
@@ -75,15 +77,15 @@ public class Enemy :
             // Draw fields - passs GUIContent.none to each so they are drawn without labels
             EditorGUI.PropertyField(leftRect, property.FindPropertyRelative("m_kind"), GUIContent.none);
 
-            if (kind == Action.Kind.eMove || kind == Action.Kind.eShoot)
+            if (kind == Action.Kind.eMove)
                 EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_direction"), GUIContent.none);
-            if (kind == Action.Kind.eMultiple)
+            if (kind == Action.Kind.eShoots)
             {
                 var multiples = property.FindPropertyRelative("m_multiples");
 
                 multiples.arraySize = EditorGUI.IntField(rightRect, multiples.arraySize);
 
-                var arrayRect = new Rect(position.x, position.y, position.width, position.height);
+                var arrayRect = new Rect(position.x+10, position.y, position.width-10, position.height);
                 foreach (SerializedProperty p in multiples)
                 {
                     arrayRect.y += base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
@@ -95,19 +97,19 @@ public class Enemy :
         }
     }
 
-/********  PROTECTED        ************************/
+    /********  PROTECTED        ************************/
 
-/********  PRIVATE          ************************/
+    /********  PRIVATE          ************************/
 
-#endregion
-#region Property
-/***************************************************/
-/***  PROPERTY              ************************/
-/***************************************************/
+    #endregion
+    #region Property
+    /***************************************************/
+    /***  PROPERTY              ************************/
+    /***************************************************/
 
-/********  PUBLIC           ************************/
+    /********  PUBLIC           ************************/
 
-public int LifePoint
+    public int LifePoint
     {
         get
         {
@@ -213,11 +215,8 @@ public int LifePoint
             case Action.Kind.eMove:
                 Move(p_action.m_direction);
                 break;
-            case Action.Kind.eShoot:
-                Shoot(p_action.m_direction);
-                break;
-            case Action.Kind.eMultiple:
-                foreach (Action action in p_action.m_multiples) doAction(action);
+            case Action.Kind.eShoots:
+                foreach (ONEGeneral.Direction direction in p_action.m_multiples) Shoot(direction);
                 break;
             case Action.Kind.eWait:
                 // Nothing
@@ -275,7 +274,8 @@ public int LifePoint
 
         Projectile script = created.GetComponent<Projectile>();
         Debug.Assert(script != null);
-        script.Init(p_direction, 10);
+        script.Init(p_direction, 10, false);
+        script.PlayMyTurn();
     }
 
     #endregion

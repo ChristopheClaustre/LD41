@@ -94,30 +94,31 @@ public class ONETurnBased :
             m_isAxisInUse = true;
 
             if (Input.GetAxis("NW____") != 0)
-                MovePlayer(ONEGeneral.Direction.eNW);
+                ONEPlayer.Instance.Move(ONEGeneral.Direction.eNW);
             else if (Input.GetAxis("__NN__") != 0)
-                MovePlayer(ONEGeneral.Direction.eNN);
+                ONEPlayer.Instance.Move(ONEGeneral.Direction.eNN);
             else if (Input.GetAxis("____NE") != 0)
-                MovePlayer(ONEGeneral.Direction.eNE);
+                ONEPlayer.Instance.Move(ONEGeneral.Direction.eNE);
             else if (Input.GetAxis("WW____") != 0)
-                MovePlayer(ONEGeneral.Direction.eWW);
-            else if (Input.GetAxis("_STAY_") != 0) { }
+                ONEPlayer.Instance.Move(ONEGeneral.Direction.eWW);
+            else if (Input.GetAxis("_STAY_") != 0)
+                ONEPlayer.Instance.Wait();
             else if (Input.GetAxis("____EE") != 0)
-                MovePlayer(ONEGeneral.Direction.eEE);
+                ONEPlayer.Instance.Move(ONEGeneral.Direction.eEE);
             else if (Input.GetAxis("SW____") != 0)
-                MovePlayer(ONEGeneral.Direction.eSW);
+                ONEPlayer.Instance.Move(ONEGeneral.Direction.eSW);
             else if (Input.GetAxis("__SS__") != 0)
-                MovePlayer(ONEGeneral.Direction.eSS);
+                ONEPlayer.Instance.Move(ONEGeneral.Direction.eSS);
             else if (Input.GetAxis("____SE") != 0)
-                MovePlayer(ONEGeneral.Direction.eSE);
+                ONEPlayer.Instance.Move(ONEGeneral.Direction.eSE);
             else if (Input.GetAxis("SLOT#1") != 0)
-                Debug.Log("SLOT#1"); // TODO
+                ONEPlayer.Instance.ChangeWeapon(0);
             else if (Input.GetAxis("SLOT#2") != 0)
-                Debug.Log("SLOT#2"); // TODO
+                ONEPlayer.Instance.ChangeWeapon(1);
             else if (Input.GetAxis("SLOT#3") != 0)
-                Debug.Log("SLOT#3"); // TODO
+                ONEPlayer.Instance.ChangeWeapon(2);
             else if (Input.GetAxis("USE") != 0)
-                Debug.Log("USE"); // TODO
+                ONEPlayer.Instance.Shoot();
 
             PlayOneTurn();
         }
@@ -147,12 +148,6 @@ public class ONETurnBased :
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
-
-    private void MovePlayer(ONEGeneral.Direction p_direction)
-    {
-        // Move
-        ONEPlayer.Instance.Move(p_direction);
-    }
 
     #endregion
 }
