@@ -227,7 +227,42 @@ public int LifePoint
 
     void Move(ONEGeneral.Direction p_direction)
     {
-        // move de la mort
+        Vector2 deplacement = ONEGeneral.DirectionToVec2(p_direction) * ONEMap.Instance.WorldToMapUnit;
+        Vector2 destination = new Vector2(transform.localPosition.x + deplacement.x, transform.localPosition.y + deplacement.y);
+
+        List<GameObject> gos = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(destination.y), Mathf.RoundToInt(destination.x));
+        if (gos != null)
+        {
+            bool blocked = false;
+
+            foreach (GameObject go in gos)
+            {
+                if (go != null)
+                {
+                    Enemy enemy = go.GetComponent<Enemy>();
+                    ONEPlayer player = go.GetComponent<ONEPlayer>();
+
+                    // Obstacle
+                    if (go.CompareTag("Obstacle")) blocked = true;
+
+                    // Player
+                    else if (player != null)
+                    {
+                        player.Hit(1);
+                        blocked = true;
+                    }
+
+                    // Enemy
+                    else if (enemy != null)
+                    {
+                        blocked = true;
+                    }
+                }
+            }
+
+            // move if not blocked
+            if (!blocked) transform.localPosition = destination;
+        }
     }
 
     void Shoot(ONEGeneral.Direction p_direction)
