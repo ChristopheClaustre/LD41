@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class Player :
+public class ONEPlayer :
     MonoBehaviour
 {
     #region Sub-classes/enum
@@ -30,37 +30,36 @@ public class Player :
 
     /********  PUBLIC           ************************/
 
-    public ONEGeneral.Direction Direction
+    public static ONEPlayer Instance
     {
         get
         {
-            return m_direction;
+            if (m_instance == null) m_instance = GameObject.FindGameObjectWithTag("Player").GetComponent<ONEPlayer>();
+            return m_instance;
         }
     }
 
-    public int MaxLifePoint
+    public static ONEGeneral.Direction Direction
     {
         get
         {
-            return m_maxLifePoint;
-        }
-
-        set
-        {
-            m_maxLifePoint = value;
+            return Instance.m_direction;
         }
     }
 
-    public int CurrentLifePoint
+    public static int MaxLifePoint
     {
         get
         {
-            return m_currentLifePoint;
+            return Instance.m_maxLifePoint;
         }
+    }
 
-        set
+    public static int CurrentLifePoint
+    {
+        get
         {
-            m_currentLifePoint = value;
+            return Instance.m_currentLifePoint;
         }
     }
 
@@ -94,6 +93,8 @@ public class Player :
 
     [SerializeField, Range(2, 20)] private int m_maxLifePoint = 5;
     [SerializeField, Range(0, 20)] private int m_currentLifePoint = 3;
+
+    private static ONEPlayer m_instance = null;
 
     #endregion
     #region Methods

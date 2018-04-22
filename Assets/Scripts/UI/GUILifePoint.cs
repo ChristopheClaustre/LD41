@@ -84,11 +84,10 @@ public class GUILifePoint :
     // Update is called once per frame
     private void Update()
     {
-        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         for(int i = 0; i < m_childrens.Count ; ++i)
         {
-            m_childrens[i].GetComponent<Image>().color = (i >= player.CurrentLifePoint) ? m_lost : m_remaining;
-            m_childrens[i].SetActive(i < player.MaxLifePoint);
+            m_childrens[i].GetComponent<Image>().color = (i >= ONEPlayer.CurrentLifePoint) ? m_lost : m_remaining;
+            m_childrens[i].SetActive(i < ONEPlayer.MaxLifePoint);
         }
     }
 

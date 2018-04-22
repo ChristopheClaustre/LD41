@@ -150,11 +150,8 @@ public class ONETurnBased :
 
     private void MovePlayer(ONEGeneral.Direction p_direction)
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Player script = player.GetComponent<Player>();
-
         // Move
-        script.Move(p_direction);
+        ONEPlayer.Instance.Move(p_direction);
     }
 
     #endregion

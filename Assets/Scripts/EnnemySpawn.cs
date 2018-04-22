@@ -105,7 +105,7 @@ public class EnnemySpawn :
 
     protected bool isSpawnActivated()
     {
-        Transform playerTransform = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        Transform playerTransform = ONEPlayer.Instance.transform;
         if(playerTransform && !m_Activated)
         {
             if ((Mathf.Abs(this.transform.position.x - playerTransform.position.x) + Mathf.Abs(this.transform.position.z - playerTransform.position.z)) > m_TriggerRange)

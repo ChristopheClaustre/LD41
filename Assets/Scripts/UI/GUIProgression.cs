@@ -74,7 +74,7 @@ public class GUIProgression :
     // Update is called once per frame
     private void Update()
     {
-        int current = Mathf.RoundToInt(GameObject.FindGameObjectWithTag("Player").transform.localPosition.x);
+        int current = Mathf.RoundToInt(ONEPlayer.Instance.transform.localPosition.x);
         int max = ONEMap.Instance.NbColumn;
 
         Slider slider = GetComponent<Slider>();

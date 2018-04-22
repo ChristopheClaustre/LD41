@@ -85,7 +85,7 @@ public class CameraScript :
 
     public void PlayMyTurn()
     {
-        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector3 playerPosition = ONEPlayer.Instance.transform.position;
         Vector3 cameraPosition = gameObject.transform.position;
         gameObject.transform.position = new Vector3(playerPosition.x+m_offset, cameraPosition.y, cameraPosition.z);
     }

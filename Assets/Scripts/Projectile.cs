@@ -107,7 +107,7 @@ public class Projectile :
         List<GameObject> currentCellObjectList = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(m_ProjectileCoordinates.x), Mathf.RoundToInt(m_ProjectileCoordinates.y));
         foreach (GameObject currentCellObject in currentCellObjectList)
         {
-            if (currentCellObject.GetComponent<Player>())  // Player
+            if (currentCellObject.GetComponent<ONEPlayer>())  // Player
             {
                 //TODO Call player hit
                 Destroy(gameObject);
@@ -125,9 +125,9 @@ public class Projectile :
             List<GameObject> nextCellObjectList = ONEMap.Instance.getObjectAt(nextX, nextY);
             foreach (GameObject nextCellObject in nextCellObjectList)
             {
-                if (nextCellObject.GetComponent<Player>())  // Player
+                if (nextCellObject.GetComponent<ONEPlayer>())  // Player
                 {
-                    //TODO Call player hit
+                    ONEPlayer.Instance.Hit(1);
                     Destroy(gameObject);
                 }
                 //else if (nextCellObject.GetComponent<Obstacle>()) //

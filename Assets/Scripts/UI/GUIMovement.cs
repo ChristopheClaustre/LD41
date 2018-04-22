@@ -78,13 +78,10 @@ public class GUIMovement :
     // Update is called once per frame
     private void Update()
     {
-        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        if (!player) return;
-
         Image[] childs = GetComponentsInChildren<Image>();
         for (int i = 0; i < childs.Length; ++i)
         {
-            if ((ONEGeneral.Direction)i == player.Direction) childs[i].sprite = m_selected;
+            if ((ONEGeneral.Direction)i == ONEPlayer.Direction) childs[i].sprite = m_selected;
             else childs[i].sprite = m_arrow;
         }
     }
