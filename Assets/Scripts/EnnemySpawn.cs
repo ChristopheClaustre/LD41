@@ -18,6 +18,12 @@ public class EnnemySpawn :
     /***************************************************/
 
     /********  PUBLIC           ************************/
+    [System.Serializable]
+    public class EnemyPositionSpawn
+    {
+        public Vector2 m_Pos;
+        public Enemy m_Enemy;
+    }
 
     /********  PROTECTED        ************************/
 
@@ -53,7 +59,7 @@ public class EnnemySpawn :
 
     /********  INSPECTOR        ************************/
     [SerializeField]
-    Queue<Enemy> m_SpawnQueue;
+    List<EnemyPositionSpawn> m_SpawnList;
     [SerializeField]
     int m_SpawnTick;    // Turn between two activations
     [SerializeField]
@@ -63,6 +69,9 @@ public class EnnemySpawn :
 
     bool m_Activated;
     int m_CoolDownTick;    // Turn left before new activation 
+    //int m_SpawnListIndex;
+
+    Queue<Enemy> m_SpawnQueue;
     /********  PRIVATE          ************************/
 
     #endregion
@@ -76,7 +85,6 @@ public class EnnemySpawn :
     // Use this for initialization
     private void Start()
     {
-        m_SpawnQueue = new Queue<Enemy>();
         m_Activated = false;
         m_CoolDownTick = 0;
     }
@@ -93,12 +101,26 @@ public class EnnemySpawn :
 
     public void PlayMyTurn()
     {
-        if (isSpawnActivated() && m_CoolDownTick == 0)
+        if (isSpawnActivated() && m_CoolDownTick <= 0)
         {
-            Instantiate(m_SpawnQueue.Dequeue(), this.transform);
+            //Creat enemy
+            if(m_SpawnList.Count > 0)
+            {
+                Enemy newEnemy = Instantiate(m_SpawnList[m_SpawnList.Count - 1].m_Enemy, this.transform);
+                //Place it 
+                int xOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count-1].m_Pos.x);
+                int yOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count-1].m_Pos.y);
+                newEnemy.transform.localPosition = new Vector2(newEnemy.transform.localPosition.x + xOffset, newEnemy.transform.localPosition.y + yOffset);
+                // Delete ennemy on list (and position)
+                m_SpawnList.RemoveAt(m_SpawnList.Count - 1);
+            }
+
             m_CoolDownTick = m_SpawnTick + 1;
         }
-        m_CoolDownTick--;
+        if (m_CoolDownTick > 0)
+        {
+            m_CoolDownTick--;
+        }
     }
 
     /********  PROTECTED        ************************/
@@ -108,7 +130,7 @@ public class EnnemySpawn :
         Transform playerTransform = ONEPlayer.Instance.transform;
         if(playerTransform && !m_Activated)
         {
-            if ((Mathf.Abs(this.transform.position.x - playerTransform.position.x) + Mathf.Abs(this.transform.position.z - playerTransform.position.z)) > m_TriggerRange)
+            if (Mathf.Abs(this.transform.position.x - playerTransform.position.x) < m_TriggerRange)
             {
                 m_Activated = true;
             }
