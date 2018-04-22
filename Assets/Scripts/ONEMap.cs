@@ -32,7 +32,11 @@ public class ONEMap :
     // Instance
     public static ONEMap Instance
     {
-        get { return m_instance; }
+        get
+        {
+            if (m_instance == null) m_instance = GameObject.FindGameObjectWithTag("GameController").GetComponent<ONEMap>();
+            return m_instance;
+        }
     }
 
     public int WorldToMapUnit
@@ -113,7 +117,6 @@ public class ONEMap :
     // Use this for initialization
     private void Start()
     {
-        m_instance = this;
         m_Map = new List<List<List<GameObject>>>();
         for (int i = 0; i < m_NbRow; i++)
         {
