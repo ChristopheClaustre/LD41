@@ -104,13 +104,16 @@ public class EnnemySpawn :
         if (isSpawnActivated() && m_CoolDownTick <= 0)
         {
             //Creat enemy
-            if(m_SpawnList.Count > 0)
+            if(m_SpawnList.Count > 0 )
             {
-                Enemy newEnemy = Instantiate(m_SpawnList[m_SpawnList.Count - 1].m_Enemy, this.transform);
-                //Place it 
-                int xOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count-1].m_Pos.x);
-                int yOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count-1].m_Pos.y);
-                newEnemy.transform.localPosition = new Vector2(newEnemy.transform.localPosition.x + xOffset, newEnemy.transform.localPosition.y + yOffset);
+                if(m_SpawnList[m_SpawnList.Count - 1].m_Enemy != null)
+                {
+                    Enemy newEnemy = Instantiate(m_SpawnList[m_SpawnList.Count - 1].m_Enemy, this.transform);
+                    //Place it 
+                    int xOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.x);
+                    int yOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.y);
+                    newEnemy.transform.localPosition = new Vector2(newEnemy.transform.localPosition.x + xOffset, newEnemy.transform.localPosition.y + yOffset);
+                }
                 // Delete ennemy on list (and position)
                 m_SpawnList.RemoveAt(m_SpawnList.Count - 1);
             }
