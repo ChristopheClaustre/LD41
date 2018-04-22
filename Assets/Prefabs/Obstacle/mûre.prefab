@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212654688576744192}
   - component: {fileID: 114405740004243814}
   m_Layer: 0
-  m_Name: "m\xFBre"
+  m_Name: Statue
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1773106829678364}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 2.0000005, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: -711344647
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 37f24f70a21930846babfe2315c68adf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7020e78dd8eccb149a49b91f4b501ff7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
