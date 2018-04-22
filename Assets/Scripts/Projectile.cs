@@ -116,7 +116,7 @@ public class Projectile :
 
         //Still here ? So analyse next cell
         Vector2 deplacement = ONEGeneral.DirectionToVec2(m_Direction);
-        Vector2 nextProjectileCoordinates = new Vector2(m_ProjectileCoordinates.x + deplacement.x, m_ProjectileCoordinates.y + deplacement.y);
+        Vector2 nextProjectileCoordinates = new Vector2(m_ProjectileCoordinates.x + deplacement.y, m_ProjectileCoordinates.y + deplacement.x);
         
         int nextX = Mathf.RoundToInt(nextProjectileCoordinates.x);
         int nextY = Mathf.RoundToInt(nextProjectileCoordinates.y);
@@ -125,7 +125,6 @@ public class Projectile :
             List<GameObject> nextCellObjectList = ONEMap.Instance.getObjectAt(nextX, nextY);
             foreach (GameObject nextCellObject in nextCellObjectList)
             {
-                Debug.Log("WHY ???");
                 if (nextCellObject.GetComponent<Player>())  // Player
                 {
                     //TODO Call player hit
