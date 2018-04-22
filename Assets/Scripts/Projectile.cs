@@ -91,6 +91,7 @@ public class Projectile :
     {
         m_Direction = p_Direction;
         m_LeftLifetime = p_LeftLifetime;
+        PlayMyTurn();
     }
 
     public void PlayMyTurn()
