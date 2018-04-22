@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Obstacle
+  - UI Turn Based
   layers:
   - Default
   - TransparentFX

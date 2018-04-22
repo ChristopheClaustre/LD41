@@ -11,6 +11,7 @@ using System.Collections.Generic;
 /***************************************************/
 public class GUIProgression :
     MonoBehaviour
+    , ONETurnBased.ITurnBasedThing
 {
     #region Sub-classes/enum
     /***************************************************/
@@ -68,11 +69,20 @@ public class GUIProgression :
     // Use this for initialization
     private void Start()
     {
-        
+        PlayMyTurn();
     }
 
     // Update is called once per frame
     private void Update()
+    {
+
+    }
+
+    /********  OUR MESSAGES     ************************/
+
+    /********  PUBLIC           ************************/
+
+    public void PlayMyTurn()
     {
         int current = Mathf.RoundToInt(ONEPlayer.Instance.transform.localPosition.x);
         int max = ONEMap.Instance.NbColumn;
@@ -81,10 +91,6 @@ public class GUIProgression :
         slider.maxValue = max - 1;
         slider.value = current;
     }
-
-    /********  OUR MESSAGES     ************************/
-
-    /********  PUBLIC           ************************/
 
     /********  PROTECTED        ************************/
 

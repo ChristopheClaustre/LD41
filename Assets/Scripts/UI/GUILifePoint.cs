@@ -11,6 +11,7 @@ using System.Collections.Generic;
 /***************************************************/
 public class GUILifePoint :
     MonoBehaviour
+    , ONETurnBased.ITurnBasedThing
 {
     #region Sub-classes/enum
     /***************************************************/
@@ -84,16 +85,21 @@ public class GUILifePoint :
     // Update is called once per frame
     private void Update()
     {
+        PlayMyTurn();
+    }
+
+    /********  OUR MESSAGES     ************************/
+
+    /********  PUBLIC           ************************/
+
+    public void PlayMyTurn()
+    {
         for(int i = 0; i < m_childrens.Count ; ++i)
         {
             m_childrens[i].GetComponent<Image>().color = (i >= ONEPlayer.CurrentLifePoint) ? m_lost : m_remaining;
             m_childrens[i].SetActive(i < ONEPlayer.MaxLifePoint);
         }
     }
-
-    /********  OUR MESSAGES     ************************/
-
-    /********  PUBLIC           ************************/
 
     /********  PROTECTED        ************************/
 

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 /***************************************************/
 public class GUIMovement :
     MonoBehaviour
+    , ONETurnBased.ITurnBasedThing
 {
     #region Sub-classes/enum
     /***************************************************/
@@ -72,11 +73,20 @@ public class GUIMovement :
     // Use this for initialization
     private void Start()
     {
-        
+        PlayMyTurn();
     }
 
     // Update is called once per frame
     private void Update()
+    {
+
+    }
+
+    /********  OUR MESSAGES     ************************/
+
+    /********  PUBLIC           ************************/
+
+    public void PlayMyTurn()
     {
         Image[] childs = GetComponentsInChildren<Image>();
         for (int i = 0; i < childs.Length; ++i)
@@ -85,10 +95,6 @@ public class GUIMovement :
             else childs[i].sprite = m_arrow;
         }
     }
-
-    /********  OUR MESSAGES     ************************/
-
-    /********  PUBLIC           ************************/
 
     /********  PROTECTED        ************************/
 
