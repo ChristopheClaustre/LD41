@@ -148,7 +148,7 @@ public class Projectile :
             List<GameObject> nextCellObjectList = ONEMap.Instance.getObjectAt(nextX, nextY);
             foreach (GameObject nextCellObject in nextCellObjectList)
             {
-                if (nextCellObject.GetComponent<ONEPlayer>() && !m_isFromPlayer) // Player
+                if (nextCellObject.GetComponent<ONEPlayer>()) // Player
                 {
                     CollisionWithPlayer();
                 }
@@ -168,6 +168,7 @@ public class Projectile :
         }
         else
         {
+            Explode();
             Destroy(gameObject);
         }
     }
