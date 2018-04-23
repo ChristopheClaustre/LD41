@@ -64,10 +64,13 @@ public class EnnemySpawn :
     int m_SpawnTick;    // Turn between two activations
     [SerializeField]
     float m_TriggerRange;
+    [SerializeField]
+    bool m_Loop = false;
 
     /********  PROTECTED        ************************/
 
     bool m_Activated;
+    int m_Index;
     int m_CoolDownTick;    // Turn left before new activation 
     
     /********  PRIVATE          ************************/
@@ -85,6 +88,7 @@ public class EnnemySpawn :
     {
         m_Activated = false;
         m_CoolDownTick = 0;
+        m_Index = m_SpawnList.Count-1;
     }
 
     // Update is called once per frame
@@ -102,18 +106,29 @@ public class EnnemySpawn :
         if (isSpawnActivated() && m_CoolDownTick <= 0)
         {
             //Create enemy
-            if(m_SpawnList.Count > 0 )
+            if(m_Index > 0 )
             {
-                if(m_SpawnList[m_SpawnList.Count - 1].m_Enemy != null)
+                if(m_SpawnList[m_Index].m_Enemy != null)
                 {
-                    GameObject newEnemy = Instantiate(m_SpawnList[m_SpawnList.Count - 1].m_Enemy, transform.parent);
+                    GameObject newEnemy = Instantiate(m_SpawnList[m_Index].m_Enemy, transform.parent);
                     //Place it
-                    int xOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.x);
-                    int yOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.y);
+                    int xOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_Index].m_Pos.x);
+                    int yOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_Index].m_Pos.y);
                     newEnemy.transform.localPosition = new Vector2(transform.localPosition.x + xOffset, transform.localPosition.y + yOffset);
                 }
                 // Delete ennemy on list (and position)
-                m_SpawnList.RemoveAt(m_SpawnList.Count - 1);
+                m_Index--;
+            }
+            if(m_Index == 0)
+            {
+                if(m_Loop)
+                {
+                    m_Index = m_SpawnList.Count-1;
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
 
             m_CoolDownTick = m_SpawnTick;
