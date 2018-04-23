@@ -84,7 +84,7 @@ public class GUIProgression :
 
     public void PlayMyTurn()
     {
-        int current = Mathf.RoundToInt(ONEPlayer.Instance.transform.localPosition.x);
+        int current = ONEPlayer.Instance.Progression;
         int max = ONEMap.Instance.NbColumn;
 
         Slider slider = GetComponent<Slider>();

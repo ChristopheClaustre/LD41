@@ -57,8 +57,6 @@ public class CameraScript :
 
     /********  PRIVATE          ************************/
 
-    [SerializeField, Range(-5, 5)] private int m_offset = 5;
-
     #endregion
     #region Methods
     /***************************************************/
@@ -85,14 +83,10 @@ public class CameraScript :
 
     public void PlayMyTurn()
     {
-        Vector3 playerPosition = ONEPlayer.Instance.transform.position;
         Vector3 cameraPosition = gameObject.transform.position;
+        var demiLongeurCamera = Camera.main.orthographicSize * Camera.main.aspect;
 
-        var largeurCamera = Camera.main.orthographicSize * Camera.main.aspect;
-        var positionMin = 0 + largeurCamera - 0.5f;
-        var positionMax = ONEMap.Instance.NbColumn - largeurCamera - 0.5f;
-
-        gameObject.transform.position = new Vector3(Mathf.Max(positionMin, Mathf.Min(playerPosition.x+m_offset, positionMax)), cameraPosition.y, cameraPosition.z);
+        gameObject.transform.position = new Vector3(ONEPlayer.Instance.ColumnLimit + demiLongeurCamera, cameraPosition.y, cameraPosition.z);
     }
 
     /********  PROTECTED        ************************/

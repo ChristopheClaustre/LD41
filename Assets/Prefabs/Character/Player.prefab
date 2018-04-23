@@ -66,6 +66,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxLifePoint: 5
   m_currentLifePoint: 3
+  m_hand: 0
+  m_visibility: 18
+  m_offset: 3
 --- !u!212 &212291100948569030
 SpriteRenderer:
   m_ObjectHideFlags: 1

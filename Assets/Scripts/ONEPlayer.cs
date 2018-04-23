@@ -116,6 +116,22 @@ public class ONEPlayer :
         }
     }
 
+    public int Progression
+    {
+        get
+        {
+            return m_progression;
+        }
+    }
+
+    public int ColumnLimit
+    {
+        get
+        {
+            return m_columnLimit;
+        }
+    }
+
     /********  PROTECTED        ************************/
 
     #endregion
@@ -152,6 +168,11 @@ public class ONEPlayer :
     [SerializeField]private List<WeaponInSlot> m_slots = new List<WeaponInSlot>();
     [SerializeField, Range(0, 2)] private int m_hand = 0;
 
+    [SerializeField] private int m_visibility = 18;
+    [SerializeField] private int m_offset = 3;
+    private int m_progression = 0;
+    private int m_columnLimit = 0;
+
     #endregion
     #region Methods
     /***************************************************/
@@ -163,6 +184,8 @@ public class ONEPlayer :
     // Use this for initialization
     private void Start()
     {
+        m_progression = Mathf.RoundToInt(transform.localPosition.x);
+        m_columnLimit = 0;
     }
 
     // Update is called once per frame
@@ -183,7 +206,7 @@ public class ONEPlayer :
         Vector2 destination = new Vector2(transform.localPosition.x + deplacement.x, transform.localPosition.y + deplacement.y);
 
         List<GameObject> gos = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(destination.y), Mathf.RoundToInt(destination.x));
-        if (gos != null)
+        if (gos != null && destination.x >= m_columnLimit)
         {
             bool blocked = false;
 
@@ -222,6 +245,9 @@ public class ONEPlayer :
             // move if not blocked
             if (! blocked) transform.localPosition = destination;
         }
+
+        m_progression = System.Math.Max(m_progression, Mathf.RoundToInt(transform.localPosition.x));
+        m_columnLimit = System.Math.Min(m_progression - m_offset, ONEMap.Instance.NbColumn+1 - m_visibility);
 
         WeaponsCooldown();
     }
