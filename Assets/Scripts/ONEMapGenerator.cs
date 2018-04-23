@@ -59,7 +59,8 @@ public class ONEMapGenerator :
     [SerializeField] private List<GameObject> m_spawners;
     [SerializeField] private Transform m_spawnerParent;
     [SerializeField] private Vector2 m_playerSpawn;
-
+    [SerializeField] private int m_leftSpawnOffest;
+    [SerializeField] private int m_rightSpawnOffest;
     #endregion
     #region Methods
     /***************************************************/
@@ -78,7 +79,7 @@ public class ONEMapGenerator :
         foreach (var prefab in m_spawners)
         {
             var created = Instantiate(prefab, m_spawnerParent);
-            created.transform.localPosition = new Vector3(Random.Range(1, column-1), Random.Range(1, row-1), 0);
+            created.transform.localPosition = new Vector3(Random.Range(1 + m_leftSpawnOffest , column-1-m_rightSpawnOffest), Random.Range(1, row-1), 0);
         }
 
         Debug.Assert(ONEMap.Instance.isOnMapCoordinates(Mathf.RoundToInt(m_playerSpawn.y), Mathf.RoundToInt(m_playerSpawn.x)));
