@@ -320,6 +320,12 @@ Prefab:
       propertyPath: m_pattern.Array.data[0].m_multiples.Array.data[3]
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
+        type: 2}
+      propertyPath: m_projectileSpawn
+      value: 
+      objectReference: {fileID: 1488681651082084, guid: 81d6ba1f15c31bb44923aebd67d91e66,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 174fcd24a1176774b8691bc4286d3e96, type: 2}
   m_IsPrefabParent: 0
@@ -439,7 +445,7 @@ Prefab:
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
       propertyPath: m_pattern.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4624263726496412, guid: 174fcd24a1176774b8691bc4286d3e96, type: 2}
       propertyPath: m_LocalPosition.x
@@ -504,6 +510,17 @@ Prefab:
       propertyPath: m_loot
       value: 
       objectReference: {fileID: 1565796988162550, guid: 7b71f108374e13e49bd362016e089cfe,
+        type: 2}
+    - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
+        type: 2}
+      propertyPath: m_pattern.Array.data[1].m_kind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
+        type: 2}
+      propertyPath: m_pattern.Array.data[1].m_projectileSpawn
+      value: 
+      objectReference: {fileID: 1559488241728362, guid: 29b9285d3a40c1942a43599035a2dd2f,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 174fcd24a1176774b8691bc4286d3e96, type: 2}
