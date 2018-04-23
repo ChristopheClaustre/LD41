@@ -21,7 +21,7 @@ public class ONEPlayer :
     [System.Serializable]
     public class WeaponInSlot
     {
-        public GameObject m_projectile;
+        public GameObject m_projectileSpawn;
         public Sprite m_icone;
         public Sprite m_weaponOnChar;
         public int m_cooldown = 3;
@@ -38,16 +38,14 @@ public class ONEPlayer :
 
         public void Shoot(Transform p_parent, Vector3 p_position, ONEGeneral.Direction p_direction)
         {
-            if (m_projectile == null || m_currentCooldown != 0) { Debug.Log("Can't shoot"); return; }
+            if (m_projectileSpawn == null || m_currentCooldown != 0) { Debug.Log("Can't shoot"); return; }
 
-            GameObject created = Instantiate(m_projectile, p_parent);
-
+            GameObject created = Instantiate(m_projectileSpawn, p_parent);
             created.transform.localPosition = p_position;
-
-            Projectile script = created.GetComponent<Projectile>();
+            ProjectileSpawn script = created.GetComponent<ProjectileSpawn>();
+            script.IsFromPlayer = true;
             Debug.Assert(script != null);
-            script.Init(p_direction, 10, true);
-
+            
             m_currentCooldown = m_cooldown + 1;
         }
 
@@ -151,7 +149,7 @@ public class ONEPlayer :
 
     private static ONEPlayer m_instance = null;
 
-    private List<WeaponInSlot> m_slots = new List<WeaponInSlot>();
+    [SerializeField]private List<WeaponInSlot> m_slots = new List<WeaponInSlot>();
     [SerializeField, Range(0, 2)] private int m_hand = 0;
 
     #endregion

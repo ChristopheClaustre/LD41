@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /***************************************************/
 /***  THE CLASS             ************************/
 /***************************************************/
-public class EnnemySpawn :
+public class ProjectileSpawn :
     MonoBehaviour
     , ONETurnBased.ITurnBasedThing
 {
@@ -19,10 +19,10 @@ public class EnnemySpawn :
 
     /********  PUBLIC           ************************/
     [System.Serializable]
-    public class EnemyPositionSpawn
+    public class GeneretedProjectile
     {
-        public Vector2 m_Pos;
-        public Enemy m_Enemy;
+        public ONEGeneral.Direction m_Direction;
+        public GameObject m_Projectile;
     }
 
     /********  PROTECTED        ************************/
@@ -36,6 +36,17 @@ public class EnnemySpawn :
     /***************************************************/
 
     /********  PUBLIC           ************************/
+    public bool IsFromPlayer
+    {
+        get
+        {
+            return m_isFromPlayer;
+        }
+        set
+        {
+            m_isFromPlayer = value;
+        }
+    }
 
     /********  PROTECTED        ************************/
 
@@ -59,19 +70,13 @@ public class EnnemySpawn :
 
     /********  INSPECTOR        ************************/
     [SerializeField]
-    List<EnemyPositionSpawn> m_SpawnList;
-    [SerializeField]
-    int m_SpawnTick;    // Turn between two activations
-    [SerializeField]
-    float m_TriggerRange;
+    List<GeneretedProjectile> m_ProjectilesSpawnList;
+
+
+    protected bool m_isFromPlayer = false;
 
     /********  PROTECTED        ************************/
 
-    bool m_Activated;
-    int m_CoolDownTick;    // Turn left before new activation 
-    //int m_SpawnListIndex;
-
-    Queue<Enemy> m_SpawnQueue;
     /********  PRIVATE          ************************/
 
     #endregion
@@ -85,8 +90,6 @@ public class EnnemySpawn :
     // Use this for initialization
     private void Start()
     {
-        m_Activated = false;
-        m_CoolDownTick = 0;
     }
 
     // Update is called once per frame
@@ -101,45 +104,22 @@ public class EnnemySpawn :
 
     public void PlayMyTurn()
     {
-        if (isSpawnActivated() && m_CoolDownTick <= 0)
+        //Creat projectile
+        foreach(GeneretedProjectile newProjectileGenereted in m_ProjectilesSpawnList)
         {
-            //Creat enemy
-            if(m_SpawnList.Count > 0 )
-            {
-                if(m_SpawnList[m_SpawnList.Count - 1].m_Enemy != null)
-                {
-                    Enemy newEnemy = Instantiate(m_SpawnList[m_SpawnList.Count - 1].m_Enemy, transform.parent);
-                    //Place it 
-                    int xOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.x);
-                    int yOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.y);
-                    newEnemy.transform.localPosition = new Vector2(newEnemy.transform.localPosition.x + xOffset, newEnemy.transform.localPosition.y + yOffset);
-                }
-                // Delete ennemy on list (and position)
-                m_SpawnList.RemoveAt(m_SpawnList.Count - 1);
-            }
+            GameObject projectileGO = Instantiate(newProjectileGenereted.m_Projectile, transform.parent);
 
-            m_CoolDownTick = m_SpawnTick + 1;
+            projectileGO.transform.localPosition = transform.localPosition;
+
+            Projectile projectileScript = projectileGO.GetComponent<Projectile>();
+            projectileScript.Init(newProjectileGenereted.m_Direction, m_isFromPlayer);
+            //Play one turn to place projectile
+            projectileScript.PlayMyTurn();
         }
-        if (m_CoolDownTick > 0)
-        {
-            m_CoolDownTick--;
-        }
+        Destroy(gameObject);
     }
 
     /********  PROTECTED        ************************/
-
-    protected bool isSpawnActivated()
-    {
-        Transform playerTransform = ONEPlayer.Instance.transform;
-        if(playerTransform && !m_Activated)
-        {
-            if (Mathf.Abs(this.transform.position.x - playerTransform.position.x) < m_TriggerRange)
-            {
-                m_Activated = true;
-            }
-        }
-        return m_Activated;
-    }
 
     /********  PRIVATE          ************************/
 

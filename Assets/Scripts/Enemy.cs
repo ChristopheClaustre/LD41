@@ -32,7 +32,7 @@ public class Enemy :
 
         public Kind m_kind;
         public ONEGeneral.Direction m_direction;
-        public ONEGeneral.Direction[] m_multiples;
+        public GameObject m_projectileSpawn;
     }
 
     // IngredientDrawer
@@ -42,19 +42,7 @@ public class Enemy :
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             return base.GetPropertyHeight(property, label)
-                + EditorGUIUtility.standardVerticalSpacing
-                + GetChildHeight(property, label);
-        }
-
-        private float GetChildHeight(SerializedProperty property, GUIContent label)
-        {
-            if ((Action.Kind)property.FindPropertyRelative("m_kind").intValue != Action.Kind.eShoots)
-                return 0; 
-
-            var child = property.FindPropertyRelative("m_multiples");
-            var incr = base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
-
-            return child.arraySize * incr;
+                + EditorGUIUtility.standardVerticalSpacing;
         }
 
         // Draw the property inside the given rect
@@ -81,16 +69,8 @@ public class Enemy :
                 EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_direction"), GUIContent.none);
             if (kind == Action.Kind.eShoots)
             {
-                var multiples = property.FindPropertyRelative("m_multiples");
+                EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_projectileSpawn"), GUIContent.none);
 
-                multiples.arraySize = EditorGUI.IntField(rightRect, multiples.arraySize);
-
-                var arrayRect = new Rect(position.x+10, position.y, position.width-10, position.height);
-                foreach (SerializedProperty p in multiples)
-                {
-                    arrayRect.y += base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
-                    EditorGUI.PropertyField(arrayRect, p, GUIContent.none, true);
-                }
             }
 
             EditorGUI.EndProperty();
@@ -147,7 +127,7 @@ public class Enemy :
 
     [SerializeField] private GameObject m_loot;
 
-    [SerializeField] private GameObject m_projectile;
+    [SerializeField] private GameObject m_projectileSpawn;
 
     [SerializeField] private Action[] m_pattern;
     private int m_patternIndex = 0;
@@ -216,7 +196,8 @@ public class Enemy :
                 Move(p_action.m_direction);
                 break;
             case Action.Kind.eShoots:
-                foreach (ONEGeneral.Direction direction in p_action.m_multiples) Shoot(direction);
+                m_projectileSpawn = p_action.m_projectileSpawn;
+                Shoot();
                 break;
             case Action.Kind.eWait:
                 // Nothing
@@ -264,18 +245,14 @@ public class Enemy :
         }
     }
 
-    void Shoot(ONEGeneral.Direction p_direction)
+    void Shoot()
     {
-        if (m_projectile == null) return;
+        if (m_projectileSpawn == null) return;
 
-        GameObject created = Instantiate(m_projectile, transform.parent);
-
+        GameObject created = Instantiate(m_projectileSpawn, transform.parent);
         created.transform.localPosition = transform.localPosition;
-
-        Projectile script = created.GetComponent<Projectile>();
+        ProjectileSpawn script = created.GetComponent<ProjectileSpawn>();
         Debug.Assert(script != null);
-        script.Init(p_direction, 10, false);
-        script.PlayMyTurn();
     }
 
     #endregion

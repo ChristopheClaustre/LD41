@@ -195,9 +195,8 @@ MonoBehaviour:
   - m_Pos: {x: -1, y: 0}
     m_Enemy: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
       type: 2}
-  - m_Pos: {x: 0, y: -1}
-    m_Enemy: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
-      type: 2}
+  - m_Pos: {x: 0, y: 0}
+    m_Enemy: {fileID: 0}
   - m_Pos: {x: 0, y: 1}
     m_Enemy: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
       type: 2}
@@ -562,7 +561,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 873489956}
+  - {fileID: 1045646027}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -880,14 +879,19 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 224835816233681986, guid: 704f5e2f7bbcede45a8674b913510c52,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224674789449576564, guid: 704f5e2f7bbcede45a8674b913510c52,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 704f5e2f7bbcede45a8674b913510c52, type: 2}
   m_IsPrefabParent: 0
---- !u!224 &873489956 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224921376112808910, guid: 704f5e2f7bbcede45a8674b913510c52,
-    type: 2}
-  m_PrefabInternal: {fileID: 873489955}
 --- !u!1 &971720291
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,6 +963,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!224 &1045646027 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224879780305112160, guid: 704f5e2f7bbcede45a8674b913510c52,
+    type: 2}
+  m_PrefabInternal: {fileID: 873489955}
 --- !u!1 &1068714274
 GameObject:
   m_ObjectHideFlags: 0

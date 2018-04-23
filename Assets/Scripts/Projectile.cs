@@ -105,6 +105,12 @@ public class Projectile :
         m_isFromPlayer = p_isFromPlayer;
     }
 
+    public void Init(ONEGeneral.Direction p_Direction, bool p_isFromPlayer)
+    {
+        m_Direction = p_Direction;
+        m_isFromPlayer = p_isFromPlayer;
+    }
+
     public void PlayMyTurn()
     {
         m_ProjectileCoordinates = ONEMap.Instance.getMapCoordinates(this.transform);
