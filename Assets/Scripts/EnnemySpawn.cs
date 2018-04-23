@@ -112,15 +112,15 @@ public class EnnemySpawn :
                     //Place it 
                     int xOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.x);
                     int yOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.y);
-                    newEnemy.transform.localPosition = new Vector2(newEnemy.transform.localPosition.x + xOffset, newEnemy.transform.localPosition.y + yOffset);
+                    newEnemy.transform.localPosition = new Vector2(transform.localPosition.x + xOffset, transform.localPosition.y + yOffset);
                 }
                 // Delete ennemy on list (and position)
                 m_SpawnList.RemoveAt(m_SpawnList.Count - 1);
             }
 
-            m_CoolDownTick = m_SpawnTick + 1;
+            m_CoolDownTick = m_SpawnTick;
         }
-        if (m_CoolDownTick > 0)
+        else
         {
             m_CoolDownTick--;
         }
