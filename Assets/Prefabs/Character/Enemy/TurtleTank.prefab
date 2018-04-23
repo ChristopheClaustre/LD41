@@ -75,7 +75,7 @@ MonoBehaviour:
     m_direction: 0
     m_projectileSpawn: {fileID: 0}
   - m_kind: 1
-    m_direction: 0
+    m_direction: 3
     m_projectileSpawn: {fileID: 1559488241728362, guid: 29b9285d3a40c1942a43599035a2dd2f,
       type: 2}
   - m_kind: 0
@@ -87,9 +87,10 @@ MonoBehaviour:
     m_projectileSpawn: {fileID: 1559488241728362, guid: 29b9285d3a40c1942a43599035a2dd2f,
       type: 2}
   - m_kind: 1
-    m_direction: 0
+    m_direction: 3
     m_projectileSpawn: {fileID: 1559488241728362, guid: 29b9285d3a40c1942a43599035a2dd2f,
       type: 2}
+  m_patternIndex: 0
 --- !u!212 &212833344736090570
 SpriteRenderer:
   m_ObjectHideFlags: 1
