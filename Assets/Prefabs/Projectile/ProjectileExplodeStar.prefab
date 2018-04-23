@@ -199,8 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5840cc24566266741a208ccc256928f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Direction: 3
-  m_TotalLifetime: 5
+  m_TotalLifetime: 4
   m_ProjectileCoordinates: {x: 0, y: 0}
   m_ProjectileSpawn: {fileID: 1183861077761026, guid: 82c89e42c08c5ea4a86743246acd0d6b,
     type: 2}

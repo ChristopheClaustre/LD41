@@ -62,7 +62,6 @@ public class Projectile :
     /********  INSPECTOR        ************************/
 
     /********  PROTECTED        ************************/
-    [SerializeField]
     ONEGeneral.Direction m_Direction;
 
     [SerializeField]

@@ -52,27 +52,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ProjectilesSpawnList:
-  - m_Direction: 0
-    m_Projectile: {fileID: 1605975947898810, guid: b87a3c4e4a545e04fb196eb3f5924916,
-      type: 2}
   - m_Direction: 1
-    m_Projectile: {fileID: 1605975947898810, guid: b87a3c4e4a545e04fb196eb3f5924916,
-      type: 2}
-  - m_Direction: 2
-    m_Projectile: {fileID: 1605975947898810, guid: b87a3c4e4a545e04fb196eb3f5924916,
+    m_Projectile: {fileID: 1172821871501842, guid: 736fe28f1a105aa4bb4eb073069499b2,
       type: 2}
   - m_Direction: 3
-    m_Projectile: {fileID: 1605975947898810, guid: b87a3c4e4a545e04fb196eb3f5924916,
+    m_Projectile: {fileID: 1172821871501842, guid: 736fe28f1a105aa4bb4eb073069499b2,
       type: 2}
   - m_Direction: 4
-    m_Projectile: {fileID: 1605975947898810, guid: b87a3c4e4a545e04fb196eb3f5924916,
-      type: 2}
-  - m_Direction: 5
-    m_Projectile: {fileID: 1605975947898810, guid: b87a3c4e4a545e04fb196eb3f5924916,
+    m_Projectile: {fileID: 1172821871501842, guid: 736fe28f1a105aa4bb4eb073069499b2,
       type: 2}
   - m_Direction: 6
-    m_Projectile: {fileID: 1605975947898810, guid: b87a3c4e4a545e04fb196eb3f5924916,
-      type: 2}
-  - m_Direction: 7
-    m_Projectile: {fileID: 1605975947898810, guid: b87a3c4e4a545e04fb196eb3f5924916,
+    m_Projectile: {fileID: 1172821871501842, guid: 736fe28f1a105aa4bb4eb073069499b2,
       type: 2}

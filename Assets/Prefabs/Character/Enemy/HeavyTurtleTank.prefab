@@ -66,8 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_lifePoint: 2
   m_currentLifePoint: 2
-  m_loot: {fileID: 1020025487419264, guid: 511eb511b97be28448dde5e2a3f2b13f, type: 2}
-  m_projectileSpawn: {fileID: 0}
+  m_loot: {fileID: 1546201034122416, guid: a8cf78c52d0fb87409d5e114abd05991, type: 2}
   m_pattern:
   - m_kind: 0
     m_direction: 0

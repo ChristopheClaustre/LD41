@@ -135,8 +135,6 @@ public class Enemy :
 
     [SerializeField] private GameObject m_loot;
 
-    [SerializeField] private GameObject m_projectileSpawn;
-
     [SerializeField] private Action[] m_pattern;
     [SerializeField] private int m_patternIndex = 0;
 
@@ -212,8 +210,7 @@ public class Enemy :
                 Move(p_action.m_direction);
                 break;
             case Action.Kind.eShoots:
-                m_projectileSpawn = p_action.m_projectileSpawn;
-                Shoot(p_action.m_direction);
+                Shoot(p_action.m_direction, p_action.m_projectileSpawn);
                 break;
             case Action.Kind.eWait:
                 // Nothing
@@ -261,11 +258,11 @@ public class Enemy :
         }
     }
 
-    void Shoot(ONEGeneral.Direction p_direction)
+    void Shoot(ONEGeneral.Direction p_direction, GameObject p_projectileSpawn)
     {
-        if (m_projectileSpawn == null) return;
+        if (p_projectileSpawn == null) return;
 
-        GameObject created = Instantiate(m_projectileSpawn, transform.parent);
+        GameObject created = Instantiate(p_projectileSpawn, transform.parent);
         created.transform.localPosition = transform.localPosition;
         ProjectileSpawn script = created.GetComponent<ProjectileSpawn>();
         script.Direction = p_direction;
