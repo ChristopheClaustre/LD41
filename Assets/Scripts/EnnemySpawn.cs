@@ -22,7 +22,7 @@ public class EnnemySpawn :
     public class EnemyPositionSpawn
     {
         public Vector2 m_Pos;
-        public Enemy m_Enemy;
+        public GameObject m_Enemy;
     }
 
     /********  PROTECTED        ************************/
@@ -69,9 +69,7 @@ public class EnnemySpawn :
 
     bool m_Activated;
     int m_CoolDownTick;    // Turn left before new activation 
-    //int m_SpawnListIndex;
-
-    Queue<Enemy> m_SpawnQueue;
+    
     /********  PRIVATE          ************************/
 
     #endregion
@@ -103,13 +101,13 @@ public class EnnemySpawn :
     {
         if (isSpawnActivated() && m_CoolDownTick <= 0)
         {
-            //Creat enemy
+            //Create enemy
             if(m_SpawnList.Count > 0 )
             {
                 if(m_SpawnList[m_SpawnList.Count - 1].m_Enemy != null)
                 {
-                    Enemy newEnemy = Instantiate(m_SpawnList[m_SpawnList.Count - 1].m_Enemy, transform.parent);
-                    //Place it 
+                    GameObject newEnemy = Instantiate(m_SpawnList[m_SpawnList.Count - 1].m_Enemy, transform.parent);
+                    //Place it
                     int xOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.x);
                     int yOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_SpawnList.Count - 1].m_Pos.y);
                     newEnemy.transform.localPosition = new Vector2(transform.localPosition.x + xOffset, transform.localPosition.y + yOffset);
