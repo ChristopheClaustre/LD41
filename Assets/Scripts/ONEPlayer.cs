@@ -44,6 +44,7 @@ public class ONEPlayer :
             created.transform.localPosition = p_position;
             ProjectileSpawn script = created.GetComponent<ProjectileSpawn>();
             script.IsFromPlayer = true;
+            script.Direction = p_direction;
             Debug.Assert(script != null);
             
             m_currentCooldown = m_cooldown + 1;

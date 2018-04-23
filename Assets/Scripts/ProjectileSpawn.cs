@@ -48,6 +48,19 @@ public class ProjectileSpawn :
         }
     }
 
+    public ONEGeneral.Direction Direction
+    {
+        get
+        {
+            return m_direction;
+        }
+        set
+        {
+            m_direction = value;
+        }
+    }
+    
+
     /********  PROTECTED        ************************/
 
     #endregion
@@ -72,8 +85,10 @@ public class ProjectileSpawn :
     [SerializeField]
     List<GeneretedProjectile> m_ProjectilesSpawnList;
 
-
     protected bool m_isFromPlayer = false;
+
+    protected ONEGeneral.Direction m_direction;
+
 
     /********  PROTECTED        ************************/
 
@@ -90,6 +105,7 @@ public class ProjectileSpawn :
     // Use this for initialization
     private void Start()
     {
+        m_direction = ONEGeneral.Direction.eEE;
     }
 
     // Update is called once per frame
@@ -112,7 +128,9 @@ public class ProjectileSpawn :
             projectileGO.transform.localPosition = transform.localPosition;
 
             Projectile projectileScript = projectileGO.GetComponent<Projectile>();
-            projectileScript.Init(newProjectileGenereted.m_Direction, m_isFromPlayer);
+
+            ONEGeneral.Direction direction = ComputeDirection(newProjectileGenereted, m_direction);
+            projectileScript.Init(direction, m_isFromPlayer);
             //Play one turn to place projectile
             projectileScript.PlayMyTurn();
         }
@@ -120,6 +138,43 @@ public class ProjectileSpawn :
     }
 
     /********  PROTECTED        ************************/
+    protected ONEGeneral.Direction ComputeDirection(GeneretedProjectile newProjectileGenereted, ONEGeneral.Direction p_Direction)
+    {
+        int orientation = (DirectionToOrientation(newProjectileGenereted.m_Direction) + DirectionToOrientation(p_Direction)) % 8;
+        return DirectionFromOrientation(orientation);
+    }
+
+    protected int DirectionToOrientation(ONEGeneral.Direction p_Direction)
+    {
+        switch(p_Direction)
+        {
+            case ONEGeneral.Direction.eEE: return 0;
+            case ONEGeneral.Direction.eSE: return 1;
+            case ONEGeneral.Direction.eSS: return 2;
+            case ONEGeneral.Direction.eSW: return 3;
+            case ONEGeneral.Direction.eWW: return 4;
+            case ONEGeneral.Direction.eNW: return 5;
+            case ONEGeneral.Direction.eNN: return 6;
+            case ONEGeneral.Direction.eNE: return 7;
+        }
+        return 0;
+    }
+
+    protected ONEGeneral.Direction DirectionFromOrientation(int p_Orientation)
+    {
+        switch (p_Orientation)
+        {
+            case 0: return ONEGeneral.Direction.eEE;
+            case 1: return ONEGeneral.Direction.eSE;
+            case 2: return ONEGeneral.Direction.eSS;
+            case 3: return ONEGeneral.Direction.eSW;
+            case 4: return ONEGeneral.Direction.eWW;
+            case 5: return ONEGeneral.Direction.eNW;
+            case 6: return ONEGeneral.Direction.eNN;
+            case 7: return ONEGeneral.Direction.eNE;
+        }
+        return ONEGeneral.Direction.eEE;
+    }
 
     /********  PRIVATE          ************************/
 

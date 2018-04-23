@@ -69,6 +69,8 @@ public class Projectile :
     int m_LeftLifetime;    // Turn left before new activation 
     [SerializeField]
     Vector2 m_ProjectileCoordinates;
+    [SerializeField]
+    GameObject m_ProjectileSpawn; //Can be let to null
 
     private bool m_isFromPlayer = true;
 
@@ -115,9 +117,10 @@ public class Projectile :
     {
         m_ProjectileCoordinates = ONEMap.Instance.getMapCoordinates(this.transform);
 
-        //Time up, bye bye :(
+        //Time up, bye bye :( But let a gift ;)
         if(m_LeftLifetime <= 0)
         {
+            Explode();
             Destroy(gameObject);
         }
 
@@ -151,6 +154,7 @@ public class Projectile :
                 }
                 else if (nextCellObject.CompareTag("Obstacle")) // Obstacle
                 {
+                    Explode();
                     Destroy(gameObject);
                 }
                 if (nextCellObject.GetComponent<Enemy>() && m_isFromPlayer) // Player
@@ -175,6 +179,18 @@ public class Projectile :
     }
 
     /********  PROTECTED        ************************/
+
+    protected void Explode()
+    {
+        if (m_ProjectileSpawn == null) return;
+
+        GameObject created = Instantiate(m_ProjectileSpawn, transform.parent);
+        created.transform.localPosition = transform.localPosition;
+        ProjectileSpawn script = created.GetComponent<ProjectileSpawn>();
+        script.Direction = m_Direction;
+        script.IsFromPlayer = m_isFromPlayer;
+        Debug.Assert(script != null);
+    }
 
     /********  PRIVATE          ************************/
 
