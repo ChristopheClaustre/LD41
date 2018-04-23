@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 212217077980202954}
   - component: {fileID: 114625909269923356}
   - component: {fileID: 114755468883317236}
+  - component: {fileID: 114311983064046462}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -71,6 +72,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &114311983064046462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1637443938747214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f01804f8220be546abc4a16d838707b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sprites:
+  - {fileID: 21300000, guid: a6bf7eb06942e9049b632f04dd9e7166, type: 3}
+  - {fileID: 21300000, guid: b65c3e02dcb49fb4a8c17c29180ed959, type: 3}
+  - {fileID: 21300000, guid: d1ab9aebf0742554c822c7d7a4a42c96, type: 3}
+  - {fileID: 21300000, guid: 0ea0096ac4cae9145914e82858eac388, type: 3}
+  - {fileID: 21300000, guid: 11f7ec13f74c90740ac03d908c38ab0c, type: 3}
+  - {fileID: 21300000, guid: 95e970a4a85a8764e8d6357ca77d2531, type: 3}
+  - {fileID: 21300000, guid: 2f33387b4723ab44c8f4c0c5ead4db71, type: 3}
+  - {fileID: 21300000, guid: e3b20a26ea631b34d98b6f6fb903a7a1, type: 3}
 --- !u!114 &114625909269923356
 MonoBehaviour:
   m_ObjectHideFlags: 1
