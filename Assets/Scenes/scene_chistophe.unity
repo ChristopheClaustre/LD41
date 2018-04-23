@@ -194,7 +194,7 @@ Prefab:
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
       propertyPath: m_pattern.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
@@ -303,7 +303,7 @@ Prefab:
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
       propertyPath: m_pattern.Array.data[2].m_kind
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
@@ -324,7 +324,23 @@ Prefab:
         type: 2}
       propertyPath: m_projectileSpawn
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
+        type: 2}
+      propertyPath: m_pattern.Array.data[0].m_projectileSpawn
+      value: 
       objectReference: {fileID: 1488681651082084, guid: 81d6ba1f15c31bb44923aebd67d91e66,
+        type: 2}
+    - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
+        type: 2}
+      propertyPath: m_pattern.Array.data[3].m_kind
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
+        type: 2}
+      propertyPath: m_pattern.Array.data[2].m_projectileSpawn
+      value: 
+      objectReference: {fileID: 1783325005820012, guid: 76554a1afa36de045b2af417f5ffbeb9,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 174fcd24a1176774b8691bc4286d3e96, type: 2}
