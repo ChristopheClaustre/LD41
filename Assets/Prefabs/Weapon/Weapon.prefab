@@ -55,7 +55,7 @@ MonoBehaviour:
   m_weaponInSlot:
     m_projectileSpawn: {fileID: 1559488241728362, guid: 29b9285d3a40c1942a43599035a2dd2f,
       type: 2}
-    m_icone: {fileID: 21300000, guid: d6c80c713f7e1b7418c7bd255d767436, type: 3}
+    m_icone: {fileID: 21300000, guid: 02f18189f1b6f60418d12a6392f15c15, type: 3}
     m_weaponOnChar: {fileID: 0}
     m_cooldown: 5
 --- !u!212 &212073993387861294
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_SortingLayerID: -149004165
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d6c80c713f7e1b7418c7bd255d767436, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 02f18189f1b6f60418d12a6392f15c15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
