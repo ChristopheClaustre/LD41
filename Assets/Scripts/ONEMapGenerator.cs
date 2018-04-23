@@ -58,6 +58,7 @@ public class ONEMapGenerator :
 
     [SerializeField] private List<GameObject> m_spawners;
     [SerializeField] private Transform m_spawnerParent;
+    [SerializeField] private Vector2 m_playerSpawn;
 
     #endregion
     #region Methods
@@ -79,6 +80,10 @@ public class ONEMapGenerator :
             var created = Instantiate(prefab, m_spawnerParent);
             created.transform.localPosition = new Vector3(Random.Range(1, column-1), Random.Range(1, row-1), 0);
         }
+
+        Debug.Assert(ONEMap.Instance.isOnMapCoordinates(Mathf.RoundToInt(m_playerSpawn.y), Mathf.RoundToInt(m_playerSpawn.x)));
+        ONEPlayer.Instance.gameObject.transform.localPosition = m_playerSpawn;
+        ONEPlayer.Instance.NewStage();
     }
 
     // Update is called once per frame

@@ -176,6 +176,8 @@ public class ONEPlayer :
     private int m_progression = 0;
     private int m_columnLimit = 0;
 
+    [SerializeField] private bool m_makeMeUnloadable;
+
     #endregion
     #region Methods
     /***************************************************/
@@ -187,8 +189,8 @@ public class ONEPlayer :
     // Use this for initialization
     private void Start()
     {
-        m_progression = Mathf.RoundToInt(transform.localPosition.x);
-        m_columnLimit = 0;
+        if (m_makeMeUnloadable)
+            DontDestroyOnLoad(gameObject.transform.parent.gameObject);
     }
 
     // Update is called once per frame
@@ -200,6 +202,12 @@ public class ONEPlayer :
     /********  OUR MESSAGES     ************************/
 
     /********  PUBLIC           ************************/
+
+    public void NewStage()
+    {
+        m_progression = Mathf.RoundToInt(transform.localPosition.x);
+        m_columnLimit = 0;
+    }
 
     public void Move(ONEGeneral.Direction p_movement)
     {

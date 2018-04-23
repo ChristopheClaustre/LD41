@@ -124,11 +124,7 @@ public class ONEMap :
             m_NbRow = Mathf.RoundToInt(m_sizer.size.y);
         }
         else Debug.Log("Sizer not set ! Will use the setted NbColumn and NbRow");
-    }
 
-    // Use this for initialization
-    private void Start()
-    {
         m_Map = new List<List<List<GameObject>>>();
         for (int i = 0; i < m_NbRow; i++)
         {
@@ -139,6 +135,12 @@ public class ONEMap :
             }
             m_Map.Add(row); // Add the row to the main vector
         }
+    }
+
+    // Use this for initialization
+    private void Start()
+    {
+
     }
 
     // Update is called once per frame
