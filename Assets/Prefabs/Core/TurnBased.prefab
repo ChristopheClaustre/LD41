@@ -58,6 +58,7 @@ MonoBehaviour:
   m_NbColumn: 20
   m_WorldToMapUnit: 1
   m_TagSelectedList:
+  - Finish
   - Player
   - Enemy
   - Obstacle
@@ -86,6 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_turnBasedTags:
+  - Finish
   - Player
   - Projectile
   - Respawn
