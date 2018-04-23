@@ -72,7 +72,10 @@ public class GUISoundSettings :
     // Use this for initialization
     private void Start()
     {
-        
+        float value;
+        m_audioMixer.GetFloat(m_propertyName, out value);
+
+        GetComponent<UnityEngine.UI.Toggle>().isOn = (value == -80.0f);
     }
 
     // Update is called once per frame
