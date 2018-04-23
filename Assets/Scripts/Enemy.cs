@@ -131,13 +131,14 @@ public class Enemy :
     /********  PRIVATE          ************************/
 
     [SerializeField, Range(0, 10)] private int m_lifePoint = 2;
+    [SerializeField, Range(0, 10)] private int m_currentLifePoint = 2;
 
     [SerializeField] private GameObject m_loot;
 
     [SerializeField] private GameObject m_projectileSpawn;
 
     [SerializeField] private Action[] m_pattern;
-    private int m_patternIndex = 0;
+    [SerializeField] private int m_patternIndex = 0;
 
     #endregion
     #region Methods
@@ -165,22 +166,26 @@ public class Enemy :
 
     public void PlayMyTurn()
     {
-        if (m_pattern.Length == 0) return;
-        
-        Action currentAction = m_pattern[m_patternIndex];
-        doAction(currentAction);
+        if (transform.localPosition.x < ONEPlayer.Instance.ColumnLimit) Destroy(gameObject);
 
-        // tour suivant
-        m_patternIndex = (m_patternIndex + 1) % m_pattern.Length;
+        if (m_pattern.Length > 0)
+        {
+            Action currentAction = m_pattern[m_patternIndex];
+            doAction(currentAction);
+
+            // tour suivant
+            m_patternIndex = (m_patternIndex + 1) % m_pattern.Length;
+        }
     }
     
     public void Hit(int p_damage)
     {
-        m_lifePoint -= p_damage;
+        m_currentLifePoint -= p_damage;
 
         ONESoundDesign.EnemyHurt();
+        GetComponent<SpriteRenderer>().color = Color.white * ((float)m_currentLifePoint / m_lifePoint) + new Color(0, 0, 0, 1);
 
-        if (m_lifePoint <= 0)
+        if (m_currentLifePoint <= 0)
         {
             if (m_loot)
             {
