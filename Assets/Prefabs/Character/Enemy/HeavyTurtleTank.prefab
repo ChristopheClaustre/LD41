@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_lifePoint: 2
+  m_currentLifePoint: 2
   m_loot: {fileID: 1020025487419264, guid: 511eb511b97be28448dde5e2a3f2b13f, type: 2}
   m_projectileSpawn: {fileID: 0}
   m_pattern:
@@ -90,6 +91,7 @@ MonoBehaviour:
     m_direction: 3
     m_projectileSpawn: {fileID: 1805640792899142, guid: 0e2c1b20905532746b0a04e8ef47015c,
       type: 2}
+  m_patternIndex: 0
 --- !u!212 &212166286936381456
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -122,7 +124,7 @@ SpriteRenderer:
   m_SortingLayerID: -711344647
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ecb7119021b520a42a9dd7c65d3e5d94, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0048f387a13a8db4eb82712ca470e66d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
