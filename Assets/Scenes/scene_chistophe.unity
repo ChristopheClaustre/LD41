@@ -136,7 +136,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 335595563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 6.5, z: 0}
+  m_LocalPosition: {x: 0, y: 6.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1242285520}
@@ -179,7 +179,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 16, y: 1}
+  m_Size: {x: 30, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -429,7 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 412551c0346cb8f48ac6c07548b52163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_offset: 5
 --- !u!1001 &411133510
 Prefab:
   m_ObjectHideFlags: 0
@@ -537,7 +536,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 443130573}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: 2}
+  m_LocalPosition: {x: 0, y: -0.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1242285520}
@@ -580,7 +579,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 16, y: 7}
+  m_Size: {x: 30, y: 7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -613,7 +612,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 612279276}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 7.5, z: 0}
+  m_LocalPosition: {x: 0, y: 7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1242285520}
@@ -656,7 +655,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 16, y: 1}
+  m_Size: {x: 30, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -715,7 +714,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1773106829678364, guid: d45283d2e306d724b9e8213e1fc18e55, type: 2}
       propertyPath: m_Name
-      value: "m\xFBre (2)"
+      value: Statue (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1773106829678364, guid: d45283d2e306d724b9e8213e1fc18e55, type: 2}
       propertyPath: m_TagString
@@ -773,26 +772,6 @@ Prefab:
       propertyPath: m_spawnerParent
       value: 
       objectReference: {fileID: 1242285520}
-    - target: {fileID: 114473091006550942, guid: 3b5125ae8e884cf42b5461777f1eaaa5,
-        type: 2}
-      propertyPath: m_toParamColumn.Array.data[0]
-      value: 
-      objectReference: {fileID: 335595565}
-    - target: {fileID: 114473091006550942, guid: 3b5125ae8e884cf42b5461777f1eaaa5,
-        type: 2}
-      propertyPath: m_toParamColumn.Array.data[1]
-      value: 
-      objectReference: {fileID: 612279278}
-    - target: {fileID: 114473091006550942, guid: 3b5125ae8e884cf42b5461777f1eaaa5,
-        type: 2}
-      propertyPath: m_toParamColumn.Array.data[2]
-      value: 
-      objectReference: {fileID: 443130575}
-    - target: {fileID: 114473091006550942, guid: 3b5125ae8e884cf42b5461777f1eaaa5,
-        type: 2}
-      propertyPath: m_toParamRow.Array.data[0]
-      value: 
-      objectReference: {fileID: 443130575}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b5125ae8e884cf42b5461777f1eaaa5, type: 2}
   m_IsPrefabParent: 0
@@ -1322,16 +1301,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114866189238091110, guid: 65755776842ea864683080fdf9e166a7,
-        type: 2}
-      propertyPath: m_slot_1.m_isPlaceholder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114866189238091110, guid: 65755776842ea864683080fdf9e166a7,
-        type: 2}
-      propertyPath: m_maxLifePoint
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65755776842ea864683080fdf9e166a7, type: 2}
   m_IsPrefabParent: 0
@@ -1384,7 +1353,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1773106829678364, guid: d45283d2e306d724b9e8213e1fc18e55, type: 2}
       propertyPath: m_Name
-      value: "m\xFBre (1)"
+      value: Statue (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1773106829678364, guid: d45283d2e306d724b9e8213e1fc18e55, type: 2}
       propertyPath: m_TagString
