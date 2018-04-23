@@ -47,6 +47,8 @@ public class ONEPlayer :
             Debug.Assert(script != null);
             
             m_currentCooldown = m_cooldown + 1;
+
+            ONESoundDesign.PlayerShoot();
         }
 
         public void Cooldown()
@@ -256,6 +258,7 @@ public class ONEPlayer :
     public void Hit(int p_damage)
     {
         m_currentLifePoint -= p_damage;
+        ONESoundDesign.PlayerHurt();
     }
 
     public void ChangeWeapon(int index)

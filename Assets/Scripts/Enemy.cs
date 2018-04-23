@@ -171,6 +171,8 @@ public class Enemy :
     {
         m_lifePoint -= p_damage;
 
+        ONESoundDesign.EnemyHurt();
+
         if (m_lifePoint <= 0)
         {
             if (m_loot)
@@ -253,6 +255,8 @@ public class Enemy :
         created.transform.localPosition = transform.localPosition;
         ProjectileSpawn script = created.GetComponent<ProjectileSpawn>();
         Debug.Assert(script != null);
+
+        ONESoundDesign.EnemyShoot();
     }
 
     #endregion
