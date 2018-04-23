@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_lifePoint: 2
   m_loot: {fileID: 0}
-  m_projectile: {fileID: 0}
+  m_projectileSpawn: {fileID: 0}
   m_pattern: []
 --- !u!212 &212203498361899818
 SpriteRenderer:

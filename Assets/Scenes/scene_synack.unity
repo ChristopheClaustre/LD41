@@ -1336,6 +1336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f4178d0cfd311240b281c30540b6022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_sizer: {fileID: 0}
   m_NbRow: 7
   m_NbColumn: 16
   m_WorldToMapUnit: 1

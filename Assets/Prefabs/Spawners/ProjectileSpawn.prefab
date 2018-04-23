@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114191056972601338}
   m_Layer: 0
   m_Name: ProjectileSpawn
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,6 +52,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ProjectilesSpawnList:
-  - m_Direction: 0
+  - m_Direction: 4
     m_Projectile: {fileID: 1172821871501842, guid: 736fe28f1a105aa4bb4eb073069499b2,
       type: 2}

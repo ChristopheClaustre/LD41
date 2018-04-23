@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212654688576744192}
   - component: {fileID: 114405740004243814}
   m_Layer: 0
-  m_Name: Statue
+  m_Name: "m\xFBre"
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
