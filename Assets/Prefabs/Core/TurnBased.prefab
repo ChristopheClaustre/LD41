@@ -63,6 +63,7 @@ MonoBehaviour:
   - Enemy
   - Obstacle
   - Weapon
+  - Projectile
   showMap: 0
 --- !u!114 &114368609217218090
 MonoBehaviour:
