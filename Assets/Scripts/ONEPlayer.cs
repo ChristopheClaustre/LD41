@@ -294,6 +294,15 @@ public class ONEPlayer :
         WeaponsCooldown();
     }
 
+    public void Destroy()
+    {
+        Destroy(transform.parent.gameObject);
+    }
+
+    /********  PROTECTED        ************************/
+
+    /********  PRIVATE          ************************/
+
     private void TakeWeapon(WeaponInSlot weapon)
     {
         if (m_slots.Count < 3)
@@ -309,10 +318,6 @@ public class ONEPlayer :
             if (weapon != null) weapon.Cooldown();
         }
     }
-
-    /********  PROTECTED        ************************/
-
-    /********  PRIVATE          ************************/
 
     #endregion
 }
