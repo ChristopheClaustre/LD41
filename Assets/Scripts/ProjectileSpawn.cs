@@ -87,7 +87,7 @@ public class ProjectileSpawn :
 
     protected bool m_isFromPlayer = false;
 
-    protected ONEGeneral.Direction m_direction;
+    protected ONEGeneral.Direction m_direction = ONEGeneral.Direction.eEE;
 
 
     /********  PROTECTED        ************************/
@@ -105,7 +105,7 @@ public class ProjectileSpawn :
     // Use this for initialization
     private void Start()
     {
-        m_direction = ONEGeneral.Direction.eEE;
+
     }
 
     // Update is called once per frame

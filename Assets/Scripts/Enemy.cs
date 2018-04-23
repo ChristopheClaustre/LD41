@@ -41,8 +41,13 @@ public class Enemy :
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return base.GetPropertyHeight(property, label)
-                + EditorGUIUtility.standardVerticalSpacing;
+            Action.Kind kind = (Action.Kind)property.FindPropertyRelative("m_kind").intValue;
+            float spacing = base.GetPropertyHeight(property, label)+ EditorGUIUtility.standardVerticalSpacing;
+            if (kind == Action.Kind.eShoots)
+            {
+                spacing += base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
+            }
+            return spacing;
         }
 
         // Draw the property inside the given rect
@@ -69,8 +74,10 @@ public class Enemy :
                 EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_direction"), GUIContent.none);
             if (kind == Action.Kind.eShoots)
             {
-                EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_projectileSpawn"), GUIContent.none);
-
+                EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_direction"), GUIContent.none);
+                leftRect.y += base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
+                EditorGUI.PropertyField(leftRect, property.FindPropertyRelative("m_projectileSpawn"), GUIContent.none);
+                
             }
 
             EditorGUI.EndProperty();
@@ -199,7 +206,7 @@ public class Enemy :
                 break;
             case Action.Kind.eShoots:
                 m_projectileSpawn = p_action.m_projectileSpawn;
-                Shoot();
+                Shoot(p_action.m_direction);
                 break;
             case Action.Kind.eWait:
                 // Nothing
@@ -247,13 +254,14 @@ public class Enemy :
         }
     }
 
-    void Shoot()
+    void Shoot(ONEGeneral.Direction p_direction)
     {
         if (m_projectileSpawn == null) return;
 
         GameObject created = Instantiate(m_projectileSpawn, transform.parent);
         created.transform.localPosition = transform.localPosition;
         ProjectileSpawn script = created.GetComponent<ProjectileSpawn>();
+        script.Direction = p_direction;
         Debug.Assert(script != null);
 
         ONESoundDesign.EnemyShoot();
