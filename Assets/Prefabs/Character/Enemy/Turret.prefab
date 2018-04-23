@@ -53,7 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65e958803869ea4d9549634aa93dcc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lifePoint: 2
+  m_lifePoint: 4
+  m_currentLifePoint: 4
   m_loot: {fileID: 0}
   m_projectileSpawn: {fileID: 0}
   m_pattern:
@@ -67,6 +68,7 @@ MonoBehaviour:
     m_direction: 4
     m_projectileSpawn: {fileID: 1488681651082084, guid: 81d6ba1f15c31bb44923aebd67d91e66,
       type: 2}
+  m_patternIndex: 0
 --- !u!114 &114460836870968760
 MonoBehaviour:
   m_ObjectHideFlags: 1
