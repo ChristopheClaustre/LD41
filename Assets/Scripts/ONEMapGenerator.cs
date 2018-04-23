@@ -58,9 +58,6 @@ public class ONEMapGenerator :
 
     [SerializeField] private List<GameObject> m_spawners;
     [SerializeField] private Transform m_spawnerParent;
-    
-    [SerializeField] private List<SpriteRenderer> m_toParamColumn;
-    [SerializeField] private List<SpriteRenderer> m_toParamRow;
 
     #endregion
     #region Methods

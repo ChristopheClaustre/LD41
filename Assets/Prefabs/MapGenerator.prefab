@@ -55,9 +55,3 @@ MonoBehaviour:
   - {fileID: 1017585103724400, guid: 21d286254911f9c4c9243836bb5d9e07, type: 2}
   - {fileID: 1017585103724400, guid: 21d286254911f9c4c9243836bb5d9e07, type: 2}
   m_spawnerParent: {fileID: 0}
-  m_toParamColumn:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_toParamRow:
-  - {fileID: 0}
