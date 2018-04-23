@@ -124,6 +124,7 @@ public class ProjectileSpawn :
         foreach(GeneretedProjectile newProjectileGenereted in m_ProjectilesSpawnList)
         {
             GameObject projectileGO = Instantiate(newProjectileGenereted.m_Projectile, transform.parent);
+            ONEMap.Instance.addToMap(projectileGO);
 
             projectileGO.transform.localPosition = transform.localPosition;
 

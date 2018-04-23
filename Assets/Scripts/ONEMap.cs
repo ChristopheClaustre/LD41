@@ -182,6 +182,11 @@ public class ONEMap :
         }
     }
 
+    public void addToMap(GameObject p_GameObject)
+    {
+        automaticPlacementComputation(p_GameObject);
+    }
+
     public List<GameObject> getObjectAt(int p_X, int p_Y)
     {
         if (p_X >= 0 && p_X < m_Map.Count && p_Y >= 0 && p_Y < m_Map[p_X].Count)
