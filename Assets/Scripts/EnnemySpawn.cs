@@ -106,7 +106,7 @@ public class EnnemySpawn :
         if (isSpawnActivated() && m_CoolDownTick <= 0)
         {
             //Create enemy
-            if(m_Index > 0 )
+            if(m_Index >= 0 )
             {
                 if(m_SpawnList[m_Index].m_Enemy != null)
                 {
@@ -119,7 +119,7 @@ public class EnnemySpawn :
                 // Delete ennemy on list (and position)
                 m_Index--;
             }
-            if(m_Index == 0)
+            else
             {
                 if(m_Loop)
                 {
