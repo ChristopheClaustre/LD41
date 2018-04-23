@@ -1347,7 +1347,7 @@ Prefab:
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
       propertyPath: m_pattern.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4624263726496412, guid: 174fcd24a1176774b8691bc4286d3e96, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1390,7 +1390,8 @@ Prefab:
         type: 2}
       propertyPath: m_pattern.Array.data[0].m_projectileSpawn
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1559488241728362, guid: 29b9285d3a40c1942a43599035a2dd2f,
+        type: 2}
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
       propertyPath: m_pattern.Array.data[1].m_kind
@@ -1399,7 +1400,7 @@ Prefab:
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
       propertyPath: m_pattern.Array.data[2].m_kind
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4624263726496412, guid: 174fcd24a1176774b8691bc4286d3e96, type: 2}
       propertyPath: m_LocalScale.y
@@ -1422,6 +1423,11 @@ Prefab:
     - target: {fileID: 1043341980527332, guid: 174fcd24a1176774b8691bc4286d3e96, type: 2}
       propertyPath: m_Name
       value: Enemy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
+        type: 2}
+      propertyPath: m_pattern.Array.data[3].m_kind
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 174fcd24a1176774b8691bc4286d3e96, type: 2}
@@ -2182,7 +2188,8 @@ Prefab:
         type: 2}
       propertyPath: m_pattern.Array.data[0].m_projectileSpawn
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1559488241728362, guid: 29b9285d3a40c1942a43599035a2dd2f,
+        type: 2}
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
       propertyPath: m_pattern.Array.data[1].m_kind
@@ -2502,7 +2509,8 @@ Prefab:
         type: 2}
       propertyPath: m_pattern.Array.data[0].m_projectileSpawn
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1559488241728362, guid: 29b9285d3a40c1942a43599035a2dd2f,
+        type: 2}
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
       propertyPath: m_pattern.Array.data[1].m_kind
@@ -3146,7 +3154,8 @@ Prefab:
         type: 2}
       propertyPath: m_pattern.Array.data[0].m_projectileSpawn
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1559488241728362, guid: 29b9285d3a40c1942a43599035a2dd2f,
+        type: 2}
     - target: {fileID: 114553436427365522, guid: 174fcd24a1176774b8691bc4286d3e96,
         type: 2}
       propertyPath: m_pattern.Array.data[1].m_kind
