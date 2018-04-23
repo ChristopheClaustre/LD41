@@ -68,13 +68,16 @@ public class CameraScript :
     // Use this for initialization
     private void Start()
     {
+        float size = ((-3.7894f * ((float)Screen.width / (float)Screen.height)) + 11.7368f);
+        Camera.main.orthographicSize = Mathf.Ceil(Mathf.Round(size * 1000.0f) / 1000.0f);
         PlayMyTurn();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+        float size = ((-3.7894f * ((float)Screen.width / (float)Screen.height)) + 11.7368f);
+        Camera.main.orthographicSize = Mathf.Ceil(Mathf.Round(size * 1000.0f) / 1000.0f);
     }
 
     /********  OUR MESSAGES     ************************/
