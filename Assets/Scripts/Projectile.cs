@@ -60,17 +60,24 @@ public class Projectile :
     /***************************************************/
 
     /********  INSPECTOR        ************************/
-    int m_RemainingLifetime;
 
     /********  PROTECTED        ************************/
     [SerializeField]
     ONEGeneral.Direction m_Direction;
+
     [SerializeField]
-    int m_LeftLifetime;    // Turn left before new activation 
+    int m_TotalLifetime = 5;    // Turn left before supression
+    int m_LeftLifetime;
+
     [SerializeField]
     Vector2 m_ProjectileCoordinates;
     [SerializeField]
     GameObject m_ProjectileSpawn; //Can be let to null
+
+    [SerializeField]
+    private Color m_initialColor;
+    [SerializeField]
+    private Color m_almostDeadColor;
 
     private bool m_isFromPlayer = true;
 
@@ -103,14 +110,17 @@ public class Projectile :
     public void Init(ONEGeneral.Direction p_Direction, int p_LeftLifetime, bool p_isFromPlayer)
     {
         m_Direction = p_Direction;
-        m_LeftLifetime = p_LeftLifetime + 1;
         m_isFromPlayer = p_isFromPlayer;
+
+        m_LeftLifetime = p_LeftLifetime;
     }
 
     public void Init(ONEGeneral.Direction p_Direction, bool p_isFromPlayer)
     {
         m_Direction = p_Direction;
         m_isFromPlayer = p_isFromPlayer;
+
+        m_LeftLifetime = m_TotalLifetime;
     }
 
     public void PlayMyTurn()
@@ -118,23 +128,10 @@ public class Projectile :
         m_ProjectileCoordinates = ONEMap.Instance.getMapCoordinates(this.transform);
 
         //Time up, bye bye :( But let a gift ;)
-        if(m_LeftLifetime <= 0)
+        if (m_LeftLifetime <= 0)
         {
             Explode();
             Destroy(gameObject);
-        }
-
-        //Check if player is on current cell
-        if (!m_isFromPlayer)
-        {
-            List<GameObject> currentCellObjectList = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(m_ProjectileCoordinates.x), Mathf.RoundToInt(m_ProjectileCoordinates.y));
-            foreach (GameObject currentCellObject in currentCellObjectList)
-            {
-                if (currentCellObject.GetComponent<ONEPlayer>())  // Player
-                {
-                    //CollisionWithPlayer();
-                }
-            }
         }
 
         //Still here ? So analyse next cell
@@ -151,16 +148,19 @@ public class Projectile :
                 if (nextCellObject.GetComponent<ONEPlayer>()) // Player
                 {
                     CollisionWithPlayer();
+                    return;
                 }
                 else if (nextCellObject.CompareTag("Obstacle")) // Obstacle
                 {
                     Explode();
                     Destroy(gameObject);
+                    return;
                 }
-                if (nextCellObject.GetComponent<Enemy>() && m_isFromPlayer) // Player
+                if (nextCellObject.GetComponent<Enemy>() && m_isFromPlayer) // Enemy
                 {
                     nextCellObject.GetComponent<Enemy>().Hit(1);
                     Destroy(gameObject);
+                    return;
                 }
             }
             transform.localPosition = new Vector2(transform.localPosition.x + (deplacement.x * ONEMap.Instance.WorldToMapUnit), transform.localPosition.y + (deplacement.y * ONEMap.Instance.WorldToMapUnit));
@@ -171,6 +171,11 @@ public class Projectile :
             Explode();
             Destroy(gameObject);
         }
+
+        float delta = (float)m_LeftLifetime / m_TotalLifetime;
+        var calculatedColor = Color.Lerp(m_initialColor, m_almostDeadColor, 1-delta);
+        calculatedColor.a = 1;
+        GetComponent<SpriteRenderer>().color = calculatedColor;
     }
 
     public void CollisionWithPlayer()

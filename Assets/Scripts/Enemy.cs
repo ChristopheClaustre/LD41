@@ -183,7 +183,9 @@ public class Enemy :
         m_currentLifePoint -= p_damage;
 
         ONESoundDesign.EnemyHurt();
-        GetComponent<SpriteRenderer>().color = Color.white * ((float)m_currentLifePoint / m_lifePoint) + new Color(0, 0, 0, 1);
+        var calculatedColor = Color.white * ((float)m_currentLifePoint / m_lifePoint);
+        calculatedColor.a = 1;
+        GetComponent<SpriteRenderer>().color = calculatedColor;
 
         if (m_currentLifePoint <= 0)
         {
