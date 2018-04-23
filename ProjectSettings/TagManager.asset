@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - UI Turn Based
   - Weapon
+  - Projectile
   layers:
   - Default
   - TransparentFX

@@ -87,6 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_turnBasedTags:
   - Player
+  - Projectile
   - Respawn
   - Enemy
   - MainCamera
