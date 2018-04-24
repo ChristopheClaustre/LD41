@@ -2,6 +2,7 @@
 /***  INCLUDE               ************************/
 /***************************************************/
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -80,7 +81,11 @@ public class ONEGeneral :
     // Update is called once per frame
     private void Update()
     {
-        
+        if (ONEPlayer.CurrentLifePoint <= 0)
+        {
+            ONEPlayer.Instance.Destroy();
+            SceneManager.LoadScene("Defeat");
+        }
     }
 
     /********  OUR MESSAGES     ************************/
