@@ -131,6 +131,7 @@ public class Projectile :
         {
             Explode();
             Destroy(gameObject);
+            return;
         }
 
         //Still here ? So analyse next cell
@@ -169,6 +170,7 @@ public class Projectile :
         {
             Explode();
             Destroy(gameObject);
+            return;
         }
 
         float delta = (float)m_LeftLifetime / m_TotalLifetime;
