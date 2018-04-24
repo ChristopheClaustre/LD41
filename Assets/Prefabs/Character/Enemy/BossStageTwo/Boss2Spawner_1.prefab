@@ -128,10 +128,10 @@ MonoBehaviour:
     m_Enemy: {fileID: 1170992135808546, guid: f3759727cfef13f4ea5f73cacb7930ff, type: 2}
   - m_Pos: {x: -2, y: -2}
     m_Enemy: {fileID: 1377546144715220, guid: aeac86cfd560aab4185b34007e75021b, type: 2}
-  - m_Pos: {x: -1, y: -2}
+  - m_Pos: {x: -1, y: -1}
     m_Enemy: {fileID: 1170992135808546, guid: dbc6aa48ac34f6e4fb34464cc639216e, type: 2}
   - m_Pos: {x: 0, y: 0}
-    m_Enemy: {fileID: 1813284597189538, guid: 1f4513ab2b5ff704e93c61302dfa192a, type: 2}
+    m_Enemy: {fileID: 1388136959409668, guid: f54494c5c7f713a44a35a190d4f8685d, type: 2}
   m_SpawnTick: 0
   m_TriggerRange: 15
   m_Loop: 0

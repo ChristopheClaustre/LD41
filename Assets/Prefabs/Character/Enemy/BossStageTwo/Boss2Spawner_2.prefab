@@ -64,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1427660566709698}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15, y: 3.000001, z: 0}
+  m_LocalPosition: {x: 15, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Children:
   - {fileID: 4409212594996242}
@@ -122,16 +122,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpawnList:
-  - m_Pos: {x: -4, y: -2}
+  - m_Pos: {x: -4, y: 2}
     m_Enemy: {fileID: 1377546144715220, guid: aeac86cfd560aab4185b34007e75021b, type: 2}
-  - m_Pos: {x: -3, y: -2}
+  - m_Pos: {x: -3, y: 2}
     m_Enemy: {fileID: 1170992135808546, guid: f3759727cfef13f4ea5f73cacb7930ff, type: 2}
-  - m_Pos: {x: -2, y: -2}
+  - m_Pos: {x: -2, y: 1}
     m_Enemy: {fileID: 1377546144715220, guid: aeac86cfd560aab4185b34007e75021b, type: 2}
-  - m_Pos: {x: -1, y: -2}
+  - m_Pos: {x: -1, y: 1}
     m_Enemy: {fileID: 1170992135808546, guid: dbc6aa48ac34f6e4fb34464cc639216e, type: 2}
   - m_Pos: {x: 0, y: 0}
-    m_Enemy: {fileID: 1813284597189538, guid: 1f4513ab2b5ff704e93c61302dfa192a, type: 2}
+    m_Enemy: {fileID: 0}
   m_SpawnTick: 0
   m_TriggerRange: 15
   m_Loop: 0
