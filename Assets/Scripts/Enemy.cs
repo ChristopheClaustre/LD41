@@ -271,8 +271,9 @@ public class Enemy :
         GameObject created = Instantiate(p_projectileSpawn, transform.parent);
         created.transform.localPosition = transform.localPosition;
         ProjectileSpawn script = created.GetComponent<ProjectileSpawn>();
-        script.Direction = p_direction;
         Debug.Assert(script != null);
+        script.Direction = p_direction;
+        script.PlayMyTurn();
 
         ONESoundDesign.EnemyShoot();
     }
