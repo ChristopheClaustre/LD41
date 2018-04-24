@@ -4,4 +4,22 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Final/TitleScreen.unity
+    guid: 450d7dcdf1eef98438d8c3010985f4a7
+  - enabled: 1
+    path: Assets/Scenes/Final/Tutorial.unity
+    guid: f7341c95853d59848804901ce1582d06
+  - enabled: 1
+    path: Assets/Scenes/Final/StageOne.unity
+    guid: ffdad9770bcb92644b1867f864075555
+  - enabled: 1
+    path: Assets/Scenes/Final/StageTwo.unity
+    guid: 9e6d411375d9564498da457e3956263f
+  - enabled: 1
+    path: Assets/Scenes/Final/Victory.unity
+    guid: 106f7fc5c95ee2d4fa7ac08b182d30a8
+  - enabled: 1
+    path: Assets/Scenes/Final/Defeat.unity
+    guid: 0760ce889862a19429ab0ef3828e4f08

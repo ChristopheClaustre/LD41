@@ -2,7 +2,7 @@
 /***  INCLUDE               ************************/
 /***************************************************/
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -35,61 +35,60 @@ public class Enemy :
         public GameObject m_projectileSpawn;
     }
 
-    // IngredientDrawer
-    [CustomPropertyDrawer(typeof(Action), true)]
-    public class ActionDrawer : PropertyDrawer
-    {
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-        {
-            Action.Kind kind = (Action.Kind)property.FindPropertyRelative("m_kind").intValue;
-            float spacing = base.GetPropertyHeight(property, label)+ EditorGUIUtility.standardVerticalSpacing;
-            if (kind == Action.Kind.eShoots)
-            {
-                spacing += base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
-            }
-            return spacing;
-        }
+//    [CustomPropertyDrawer(typeof(Action), true)]
+//    public class ActionDrawer : PropertyDrawer
+//    {
+//        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+//        {
+//            Action.Kind kind = (Action.Kind)property.FindPropertyRelative("m_kind").intValue;
+//            float spacing = base.GetPropertyHeight(property, label)+ EditorGUIUtility.standardVerticalSpacing;
+//            if (kind == Action.Kind.eShoots)
+//            {
+//                spacing += base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
+//            }
+//            return spacing;
+//        }
 
-        // Draw the property inside the given rect
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            Action.Kind kind = (Action.Kind)property.FindPropertyRelative("m_kind").intValue;
+//        // Draw the property inside the given rect
+//        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+//        {
+//            Action.Kind kind = (Action.Kind)property.FindPropertyRelative("m_kind").intValue;
 
-            // Using BeginProperty / EndProperty on the parent property means that
-            // prefab override logic works on the entire property.
-            EditorGUI.BeginProperty(position, label, property);
+//            // Using BeginProperty / EndProperty on the parent property means that
+//            // prefab override logic works on the entire property.
+//            EditorGUI.BeginProperty(position, label, property);
 
-            // Draw label
-            position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+//            // Draw label
+//            position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
 
-            // Calculate rects
-            var halfWidth = position.width/2;
-            var leftRect = new Rect(position.x, position.y, halfWidth, base.GetPropertyHeight(property, label));
-            var rightRect = new Rect(position.x + halfWidth, position.y, halfWidth, base.GetPropertyHeight(property, label));
+//            // Calculate rects
+//            var halfWidth = position.width/2;
+//            var leftRect = new Rect(position.x, position.y, halfWidth, base.GetPropertyHeight(property, label));
+//            var rightRect = new Rect(position.x + halfWidth, position.y, halfWidth, base.GetPropertyHeight(property, label));
 
-            // Draw fields - passs GUIContent.none to each so they are drawn without labels
-            EditorGUI.PropertyField(leftRect, property.FindPropertyRelative("m_kind"), GUIContent.none);
+//            // Draw fields - passs GUIContent.none to each so they are drawn without labels
+//            EditorGUI.PropertyField(leftRect, property.FindPropertyRelative("m_kind"), GUIContent.none);
 
-            if (kind == Action.Kind.eMove)
-                EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_direction"), GUIContent.none);
-            if (kind == Action.Kind.eShoots)
-            {
-                EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_direction"), GUIContent.none);
-                leftRect.y += base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
-                EditorGUI.PropertyField(leftRect, property.FindPropertyRelative("m_projectileSpawn"), GUIContent.none);
+//            if (kind == Action.Kind.eMove)
+//                EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_direction"), GUIContent.none);
+//            if (kind == Action.Kind.eShoots)
+//            {
+//                EditorGUI.PropertyField(rightRect, property.FindPropertyRelative("m_direction"), GUIContent.none);
+//                leftRect.y += base.GetPropertyHeight(property, label) + EditorGUIUtility.standardVerticalSpacing;
+//                EditorGUI.PropertyField(leftRect, property.FindPropertyRelative("m_projectileSpawn"), GUIContent.none);
                 
-            }
+//            }
 
-            EditorGUI.EndProperty();
-        }
-    }
+//            EditorGUI.EndProperty();
+//        }
+//    }
 
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
 
-    #endregion
-    #region Property
+#endregion
+#region Property
     /***************************************************/
     /***  PROPERTY              ************************/
     /***************************************************/
@@ -106,8 +105,8 @@ public class Enemy :
 
     /********  PROTECTED        ************************/
 
-    #endregion
-    #region Constants
+#endregion
+#region Constants
     /***************************************************/
     /***  CONSTANTS             ************************/
     /***************************************************/
@@ -118,8 +117,8 @@ public class Enemy :
 
     /********  PRIVATE          ************************/
 
-    #endregion
-    #region Attributes
+#endregion
+#region Attributes
     /***************************************************/
     /***  ATTRIBUTES            ************************/
     /***************************************************/
@@ -138,8 +137,8 @@ public class Enemy :
     [SerializeField] private Action[] m_pattern;
     [SerializeField] private int m_patternIndex = 0;
 
-    #endregion
-    #region Methods
+#endregion
+#region Methods
     /***************************************************/
     /***  METHODS               ************************/
     /***************************************************/
@@ -271,5 +270,5 @@ public class Enemy :
         ONESoundDesign.EnemyShoot();
     }
 
-    #endregion
+#endregion
 }
