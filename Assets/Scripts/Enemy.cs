@@ -165,6 +165,16 @@ public class Enemy :
     {
         if (transform.localPosition.x < ONEPlayer.Instance.ColumnLimit) Destroy(gameObject);
 
+        var calculatedColor = Color.white * ((float)m_currentLifePoint / m_lifePoint);
+        calculatedColor.a = 1;
+        if (m_pattern.Length > 0)
+        {
+            var nextAction = m_pattern[(m_patternIndex + 1) % m_pattern.Length];
+            calculatedColor.g *= (nextAction.m_kind == Action.Kind.eShoots) ? 0.5f : 1;
+            calculatedColor.b *= (nextAction.m_kind == Action.Kind.eShoots) ? 0.5f : 1;
+        }
+        GetComponent<SpriteRenderer>().color = calculatedColor;
+
         if (m_pattern.Length > 0)
         {
             Action currentAction = m_pattern[m_patternIndex];
@@ -180,9 +190,6 @@ public class Enemy :
         m_currentLifePoint -= p_damage;
 
         ONESoundDesign.EnemyHurt();
-        var calculatedColor = Color.white * ((float)m_currentLifePoint / m_lifePoint);
-        calculatedColor.a = 1;
-        GetComponent<SpriteRenderer>().color = calculatedColor;
 
         if (m_currentLifePoint <= 0)
         {
