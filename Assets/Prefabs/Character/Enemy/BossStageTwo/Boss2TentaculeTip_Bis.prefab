@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 212034096345817160}
   - component: {fileID: 114549154021173300}
   m_Layer: 0
-  m_Name: Boss2TentaculeTip
+  m_Name: Boss2TentaculeTip_Bis
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,20 +59,20 @@ MonoBehaviour:
   m_pattern:
   - m_kind: 1
     m_direction: 3
-    m_projectileSpawn: {fileID: 1488681651082084, guid: a7d319a2a375c7c4d876bbaca1031c66,
+    m_projectileSpawn: {fileID: 1488681651082084, guid: 81d6ba1f15c31bb44923aebd67d91e66,
       type: 2}
   - m_kind: 0
     m_direction: 1
     m_projectileSpawn: {fileID: 0}
   - m_kind: 1
     m_direction: 3
-    m_projectileSpawn: {fileID: 1488681651082084, guid: a7d319a2a375c7c4d876bbaca1031c66,
+    m_projectileSpawn: {fileID: 1488681651082084, guid: 81d6ba1f15c31bb44923aebd67d91e66,
       type: 2}
   - m_kind: 0
     m_direction: 6
     m_projectileSpawn: {fileID: 1488681651082084, guid: 81d6ba1f15c31bb44923aebd67d91e66,
       type: 2}
-  m_patternIndex: 0
+  m_patternIndex: 2
 --- !u!114 &114549154021173300
 MonoBehaviour:
   m_ObjectHideFlags: 1
