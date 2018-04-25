@@ -93,5 +93,4 @@ MonoBehaviour:
   - Projectile
   - Respawn
   - Enemy
-  - MainCamera
   - UI Turn Based
