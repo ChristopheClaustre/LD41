@@ -204,7 +204,7 @@ MonoBehaviour:
   m_ProjectileSpawn: {fileID: 1783325005820012, guid: 76554a1afa36de045b2af417f5ffbeb9,
     type: 2}
   m_initialColor: {r: 0, g: 0.5588236, b: 1, a: 1}
-  m_almostDeadColor: {r: 0.625, g: 0, b: 0, a: 0}
+  m_almostDeadColor: {r: 0.625, g: 0, b: 0, a: 1}
 --- !u!198 &198089299339678386
 ParticleSystem:
   m_ObjectHideFlags: 1

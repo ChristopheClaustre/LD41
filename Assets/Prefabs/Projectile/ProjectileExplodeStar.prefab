@@ -203,8 +203,8 @@ MonoBehaviour:
   m_ProjectileCoordinates: {x: 0, y: 0}
   m_ProjectileSpawn: {fileID: 1183861077761026, guid: 82c89e42c08c5ea4a86743246acd0d6b,
     type: 2}
-  m_initialColor: {r: 0, g: 0.5588236, b: 1, a: 1}
-  m_almostDeadColor: {r: 0.625, g: 0, b: 0, a: 0}
+  m_initialColor: {r: 0.12975778, g: 0.7058823, b: 0.1575706, a: 1}
+  m_almostDeadColor: {r: 0.07352942, g: 0.06920416, b: 0.06920416, a: 1}
 --- !u!198 &198729361974369170
 ParticleSystem:
   m_ObjectHideFlags: 1

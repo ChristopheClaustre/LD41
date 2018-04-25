@@ -326,12 +326,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5840cc24566266741a208ccc256928f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Direction: 3
   m_TotalLifetime: 1
   m_ProjectileCoordinates: {x: 0, y: 0}
   m_ProjectileSpawn: {fileID: 0}
   m_initialColor: {r: 0, g: 0.5588236, b: 1, a: 1}
-  m_almostDeadColor: {r: 0.625, g: 0, b: 0, a: 0}
+  m_almostDeadColor: {r: 0.625, g: 0, b: 0, a: 1}
 --- !u!198 &198242747439686008
 ParticleSystem:
   m_ObjectHideFlags: 1
