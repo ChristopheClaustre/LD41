@@ -57,6 +57,7 @@ public class Suivant :
     /********  PRIVATE          ************************/
 
     [SerializeField] private string m_scene;
+    private bool m_pressed = false;
 
     #endregion
     #region Methods
@@ -76,6 +77,9 @@ public class Suivant :
     private void Update()
     {
         if (Input.GetAxis("USE") != 0)
+            m_pressed = true;
+
+        if (m_pressed && Input.GetAxis("USE") == 0)
             UnityEngine.SceneManagement.SceneManager.LoadScene(m_scene);
     }
 
