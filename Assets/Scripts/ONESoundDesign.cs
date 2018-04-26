@@ -57,7 +57,7 @@ public class ONESoundDesign :
 
     /********  PRIVATE          ************************/
 
-    private static ONESoundDesign m_instance;
+    private static ONESoundDesign m_instance = null;
 
     [SerializeField] private AudioSource m_playerHurt;
     [SerializeField] private AudioSource m_enemyHurt;
@@ -74,7 +74,10 @@ public class ONESoundDesign :
 
     private void Awake()
     {
-        m_instance = this;
+        if (m_instance != null)
+            Destroy(gameObject);
+        else
+            m_instance = this;
     }
 
     // Use this for initialization
@@ -86,7 +89,7 @@ public class ONESoundDesign :
     // Update is called once per frame
     private void Update()
     {
-        if (m_instance != this) { Destroy(gameObject); return; }
+        
     }
 
     /********  OUR MESSAGES     ************************/
