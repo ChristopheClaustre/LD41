@@ -84,7 +84,13 @@ public class GUIOrderLayer :
     public void PlayMyTurn()
     {
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        renderer.sortingOrder = - Mathf.RoundToInt(transform.localPosition.y);
+
+        int sortingOrder;
+        var script = GetComponent<ONEMap.IMyTransformIsALie>();
+        if (script != null) sortingOrder = - Mathf.RoundToInt(script.Position.y);
+        else sortingOrder = - Mathf.RoundToInt(transform.localPosition.y);
+
+        renderer.sortingOrder = sortingOrder;
     }
 
     /********  PROTECTED        ************************/
