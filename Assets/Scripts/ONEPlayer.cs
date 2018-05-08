@@ -10,6 +10,7 @@ using System.Collections.Generic;
 /***************************************************/
 public class ONEPlayer :
     MonoBehaviour
+    , ONEMap.IMyTransformIsALie
 {
     #region Sub-classes/enum
     /***************************************************/
@@ -135,6 +136,14 @@ public class ONEPlayer :
         }
     }
 
+    public Vector3 Position
+    {
+        get
+        {
+            return m_destination;
+        }
+    }
+
     /********  PROTECTED        ************************/
 
     #endregion
@@ -162,6 +171,7 @@ public class ONEPlayer :
     /********  PRIVATE          ************************/
 
     private ONEGeneral.Direction m_direction = ONEGeneral.Direction.eEE;
+    private Vector3 m_destination;
 
     [SerializeField, Range(2, 20)] private int m_maxLifePoint = 5;
     [SerializeField, Range(0, 20)] private int m_currentLifePoint = 3;
@@ -191,12 +201,14 @@ public class ONEPlayer :
     {
         if (m_makeMeUnloadable)
             DontDestroyOnLoad(gameObject.transform.parent.gameObject);
+
+        m_destination = transform.localPosition;
     }
 
     // Update is called once per frame
     private void Update()
     {
-
+        transform.localPosition = Vector3.Lerp(transform.localPosition, m_destination, Time.deltaTime * ONEGeneral.VelocityAnimation);
     }
 
     /********  OUR MESSAGES     ************************/
@@ -205,7 +217,8 @@ public class ONEPlayer :
 
     public void NewStage()
     {
-        m_progression = Mathf.RoundToInt(transform.localPosition.x);
+        m_destination = transform.localPosition;
+        m_progression = Mathf.RoundToInt(m_destination.x);
         m_columnLimit = 0;
     }
 
@@ -213,10 +226,10 @@ public class ONEPlayer :
     {
         m_direction = p_movement;
 
-        Vector2 deplacement = ONEGeneral.DirectionToVec2(p_movement) * ONEMap.Instance.WorldToMapUnit;
-        Vector2 destination = new Vector2(transform.localPosition.x + deplacement.x, transform.localPosition.y + deplacement.y);
+        Vector2 deplacement = ONEGeneral.DirectionToVec2(p_movement);
+        Vector2 destination = new Vector2(Mathf.RoundToInt(m_destination.x + deplacement.x), Mathf.RoundToInt(m_destination.y + deplacement.y));
 
-        List<GameObject> gos = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(destination.y), Mathf.RoundToInt(destination.x));
+        List<GameObject> gos = ONEMap.Instance.getObjectAt((int)destination.y, (int)destination.x);
         if (gos != null && destination.x >= m_columnLimit)
         {
             bool blocked = false;
@@ -254,10 +267,10 @@ public class ONEPlayer :
             }
 
             // move if not blocked
-            if (! blocked) transform.localPosition = destination;
+            if (! blocked) m_destination = destination;
         }
 
-        m_progression = System.Math.Max(m_progression, Mathf.RoundToInt(transform.localPosition.x));
+        m_progression = System.Math.Max(m_progression, Mathf.RoundToInt(m_destination.x));
         m_columnLimit = System.Math.Min(m_progression - m_offset, ONEMap.Instance.NbColumn+1 - m_visibility);
 
         WeaponsCooldown();
@@ -283,7 +296,7 @@ public class ONEPlayer :
         if (m_hand < m_slots.Count)
         {
             WeaponInSlot selected = m_slots[m_hand];
-            selected.Shoot(transform.parent, transform.localPosition, m_direction);
+            selected.Shoot(transform.parent, m_destination, m_direction);
         }
         
         WeaponsCooldown();

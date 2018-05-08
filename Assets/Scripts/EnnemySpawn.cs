@@ -112,9 +112,15 @@ public class EnnemySpawn :
                 {
                     GameObject newEnemy = Instantiate(m_SpawnList[m_Index].m_Enemy, transform.parent);
                     //Place it
-                    int xOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_Index].m_Pos.x);
-                    int yOffset = Mathf.FloorToInt(ONEMap.Instance.WorldToMapUnit * m_SpawnList[m_Index].m_Pos.y);
+                    int xOffset = Mathf.RoundToInt(m_SpawnList[m_Index].m_Pos.x);
+                    int yOffset = Mathf.RoundToInt(m_SpawnList[m_Index].m_Pos.y);
                     newEnemy.transform.localPosition = new Vector2(transform.localPosition.x + xOffset, transform.localPosition.y + yOffset);
+
+                    Enemy script = newEnemy.GetComponent<Enemy>();
+                    if (script != null)
+                    {
+                        script.Start();
+                    }
                 }
                 // Delete ennemy on list (and position)
                 m_Index--;

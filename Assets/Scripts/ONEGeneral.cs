@@ -38,6 +38,11 @@ public class ONEGeneral :
 
     /********  PUBLIC           ************************/
 
+    public static float VelocityAnimation
+    {
+        get { return m_instance.m_velocityAnimimation; }
+    }
+
     /********  PROTECTED        ************************/
 
     #endregion
@@ -59,10 +64,14 @@ public class ONEGeneral :
     /***************************************************/
 
     /********  INSPECTOR        ************************/
-    
+
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
+
+    [SerializeField] private float m_velocityAnimimation = 4;
+
+    private static ONEGeneral m_instance = null;
 
     #endregion
     #region Methods
@@ -75,7 +84,7 @@ public class ONEGeneral :
     // Use this for initialization
     private void Start()
     {
-        
+        m_instance = this;
     }
 
     // Update is called once per frame

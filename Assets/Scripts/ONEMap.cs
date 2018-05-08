@@ -18,6 +18,11 @@ public class ONEMap :
 
     /********  PUBLIC           ************************/
 
+    public interface IMyTransformIsALie
+    {
+        Vector3 Position { get; }
+    }
+
     /********  PROTECTED        ************************/
 
     /********  PRIVATE          ************************/
@@ -36,14 +41,6 @@ public class ONEMap :
         {
             if (m_instance == null) m_instance = GameObject.FindGameObjectWithTag("GameController").GetComponent<ONEMap>();
             return m_instance;
-        }
-    }
-
-    public int WorldToMapUnit
-    {
-        get
-        {
-            return m_WorldToMapUnit;
         }
     }
 
@@ -91,8 +88,6 @@ public class ONEMap :
     int m_NbRow;
     [SerializeField]
     int m_NbColumn;
-    [SerializeField]
-    int m_WorldToMapUnit;
     [SerializeField]
     List<string> m_TagSelectedList;
 
@@ -187,11 +182,11 @@ public class ONEMap :
         automaticPlacementComputation(p_GameObject);
     }
 
-    public List<GameObject> getObjectAt(int p_X, int p_Y)
+    public List<GameObject> getObjectAt(int p_row, int p_column)
     {
-        if (p_X >= 0 && p_X < m_Map.Count && p_Y >= 0 && p_Y < m_Map[p_X].Count)
+        if (p_row >= 0 && p_row < m_Map.Count && p_column >= 0 && p_column < m_Map[p_row].Count)
         {
-            return m_Map[p_X][p_Y]; //Empty if empty case
+            return m_Map[p_row][p_column]; //Empty if empty case
         }
         else
         {
@@ -199,40 +194,50 @@ public class ONEMap :
         }
     }
 
-    public bool isOnMapCoordinates(int p_X, int p_Y)
+    public bool isOnMapCoordinates(int p_row, int p_column)
     {
-        return (p_X >= 0 && p_X < m_Map.Count && p_Y >= 0 && p_Y < m_Map[p_X].Count);
+        return (p_row >= 0 && p_row < m_Map.Count && p_column >= 0 && p_column < m_Map[p_row].Count);
     }
 
     public Vector2 getMapCoordinates(Transform p_Transforme)
     {
         float x = p_Transforme.position.z;
         float y = p_Transforme.position.x;
-        return new Vector2(Mathf.FloorToInt(Mathf.FloorToInt(x) / m_WorldToMapUnit), Mathf.FloorToInt(Mathf.FloorToInt(y) / m_WorldToMapUnit));
-    }
-
-    public Vector2 getWorldCoordinates(int p_X, int p_Y)
-    {
-        return new Vector2(p_X * m_WorldToMapUnit, p_Y * m_WorldToMapUnit);
+        return new Vector2(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
     }
 
     /********  PROTECTED        ************************/
 
     protected void automaticPlacementComputation(GameObject p_Object)
     {
-        float x = p_Object.transform.position.z;
-        float y = p_Object.transform.position.x;
-        int row = Mathf.FloorToInt(Mathf.FloorToInt(x) / m_WorldToMapUnit);
-        int column = Mathf.FloorToInt(Mathf.FloorToInt(y) / m_WorldToMapUnit);
-
-        //Safty check
-        if (row >= 0 && row < m_Map.Count && column >= 0 && column < m_Map[row].Count)
+        IMyTransformIsALie script = p_Object.GetComponent<IMyTransformIsALie>();
+        Vector2 position;
+        if (script != null)
         {
-            m_Map[row][column].Add(p_Object);
+            position.x = script.Position.y;
+            position.y = script.Position.x;
         }
         else
         {
-            Debug.Log("Caution : Object '" + p_Object + "' detected out of map. (Row = "+ row + " ; Column = " + column+")");
+            position.x = p_Object.transform.position.z;
+            position.y = p_Object.transform.position.x;
+        }
+        int row = Mathf.RoundToInt(position.x);
+        int column = Mathf.RoundToInt(position.y);
+
+        placement(p_Object, row, column);
+    }
+
+    protected void placement(GameObject p_Object, int p_row, int p_column)
+    {
+        //Safty check
+        if (p_row >= 0 && p_row < m_Map.Count && p_column >= 0 && p_column < m_Map[p_row].Count)
+        {
+            m_Map[p_row][p_column].Add(p_Object);
+        }
+        else
+        {
+            Debug.Log("Caution : Object '" + p_Object + "' detected out of map. (Row = " + p_row + " ; Column = " + p_column + ")");
         }
     }
 

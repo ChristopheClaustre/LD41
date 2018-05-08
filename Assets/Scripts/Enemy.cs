@@ -12,6 +12,7 @@ using System.Collections.Generic;
 public class Enemy :
     MonoBehaviour
     , ONETurnBased.ITurnBasedThing
+    , ONEMap.IMyTransformIsALie
 {
     #region Sub-classes/enum
     /***************************************************/
@@ -88,7 +89,7 @@ public class Enemy :
     /********  PRIVATE          ************************/
 
 #endregion
-#region Property
+    #region Property
     /***************************************************/
     /***  PROPERTY              ************************/
     /***************************************************/
@@ -103,10 +104,15 @@ public class Enemy :
         }
     }
 
+    public Vector3 Position
+    {
+        get { return m_destination; }
+    }
+
     /********  PROTECTED        ************************/
 
-#endregion
-#region Constants
+    #endregion
+    #region Constants
     /***************************************************/
     /***  CONSTANTS             ************************/
     /***************************************************/
@@ -117,8 +123,8 @@ public class Enemy :
 
     /********  PRIVATE          ************************/
 
-#endregion
-#region Attributes
+    #endregion
+    #region Attributes
     /***************************************************/
     /***  ATTRIBUTES            ************************/
     /***************************************************/
@@ -137,8 +143,10 @@ public class Enemy :
     [SerializeField] private Action[] m_pattern;
     [SerializeField] private int m_patternIndex = 0;
 
-#endregion
-#region Methods
+    [SerializeField] private Vector3 m_destination;
+
+    #endregion
+    #region Methods
     /***************************************************/
     /***  METHODS               ************************/
     /***************************************************/
@@ -146,15 +154,17 @@ public class Enemy :
     /********  UNITY MESSAGES   ************************/
 
     // Use this for initialization
-    private void Start()
+    public void Start()
     {
-        if (m_pattern.Length == 0) { Debug.Log("No pattern"); return; }
+        if (m_pattern.Length == 0) { Debug.Log("No pattern"); }
+
+        m_destination = transform.localPosition;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+        transform.localPosition = Vector3.Lerp(transform.localPosition, m_destination, Time.deltaTime * ONEGeneral.VelocityAnimation);
     }
 
     /********  OUR MESSAGES     ************************/
@@ -163,7 +173,7 @@ public class Enemy :
 
     public void PlayMyTurn()
     {
-        if (transform.localPosition.x < ONEPlayer.Instance.ColumnLimit) Destroy(gameObject);
+        if (m_destination.x < ONEPlayer.Instance.ColumnLimit) { Destroy(gameObject); return; }
 
         var calculatedColor = Color.white * ((float)m_currentLifePoint / m_lifePoint);
         calculatedColor.a = 1;
@@ -196,7 +206,7 @@ public class Enemy :
             if (m_loot)
             {
                 GameObject created = Instantiate(m_loot, transform.parent);
-                created.transform.localPosition = transform.localPosition;
+                created.transform.localPosition = m_destination;
             }
 
             Debug.Log(name + " diededed ! x(");
@@ -226,10 +236,10 @@ public class Enemy :
 
     void Move(ONEGeneral.Direction p_direction)
     {
-        Vector2 deplacement = ONEGeneral.DirectionToVec2(p_direction) * ONEMap.Instance.WorldToMapUnit;
-        Vector2 destination = new Vector2(transform.localPosition.x + deplacement.x, transform.localPosition.y + deplacement.y);
+        Vector2 deplacement = ONEGeneral.DirectionToVec2(p_direction);
+        Vector2 destination = new Vector2(Mathf.RoundToInt(m_destination.x + deplacement.x), Mathf.RoundToInt(m_destination.y + deplacement.y));
 
-        List<GameObject> gos = ONEMap.Instance.getObjectAt(Mathf.RoundToInt(destination.y), Mathf.RoundToInt(destination.x));
+        List<GameObject> gos = ONEMap.Instance.getObjectAt((int)destination.y, (int)destination.x);
         if (gos != null)
         {
             bool blocked = false;
@@ -260,7 +270,7 @@ public class Enemy :
             }
 
             // move if not blocked
-            if (!blocked) transform.localPosition = destination;
+            if (!blocked) m_destination = destination;
         }
     }
 
@@ -269,7 +279,7 @@ public class Enemy :
         if (p_projectileSpawn == null) return;
 
         GameObject created = Instantiate(p_projectileSpawn, transform.parent);
-        created.transform.localPosition = transform.localPosition;
+        created.transform.localPosition = m_destination;
         ProjectileSpawn script = created.GetComponent<ProjectileSpawn>();
         Debug.Assert(script != null);
         script.Direction = p_direction;
